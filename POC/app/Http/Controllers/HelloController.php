@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Models\Preference;
 
 class HelloController extends Controller
 {
@@ -25,6 +26,29 @@ class HelloController extends Controller
         return view('welcome', [
             'height' => $height,
             'apiResponse' => $response->body()
+        ]);
+
+    }
+
+    public function updatePreferences(Request $request)
+    {
+        $data = $request->validate([
+            'sitting_height' => 'required|numeric',
+            'standing_height' => 'required|numeric'
+            
+        ]);
+   
+        $preference = Preference::updateOrCreate([
+                //'user_id' => auth()->id(),
+                'sitting_height' => $data['sitting_height'],
+                'standing_height' => $data['standing_height']
+            ]
+        );
+
+
+        return view('welcome', [
+            'sitting_height' => $data['sitting_height'],
+            'standing_height' => $data['standing_height']
         ]);
 
     }

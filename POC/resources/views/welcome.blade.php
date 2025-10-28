@@ -18,6 +18,18 @@
     <button type="submit">Send</button>
   </form>
 
+  <form method="POST" action="{{route('desk.save')}}">
+    @csrf
+    <label>Sitting Height (mm):
+      <input type="number" name="sitting_height" value="{{ $sitting_height ?? 720 }}" min="500" max="1300">
+    </label>
+
+    <label>Standing Height (mm):
+      <input type="number" name="standing_height" value="{{ $standing_height ?? 1000 }}" min="500" max="1300">
+    </label>
+    <button type="submit">Save</button>
+  </form>
+
   @isset($apiResponse)
     <h3>Response</h3>
     <pre>{{ $apiResponse }}</pre>
