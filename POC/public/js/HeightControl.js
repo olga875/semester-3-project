@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function applyHeight() {
     const height = document.getElementById('height-input').value;
     if (!height) return alert('Please enter a height value');
-    updateDeskHeight(parseFloat(height) * 10);
+    updateDeskHeight(parseFloat(height));
     currentHeight = parseFloat(height);
     updateCurrentHeight();
 }
@@ -111,7 +111,7 @@ function loadPreferences() {
 function applyPreset() {
     const height = document.getElementById('sitting-preset').value || document.getElementById('standing-preset').value;
     if (!height) return alert('Please select a preset height');
-    newHeight = parseFloat(height) * 10 || 750;
+    newHeight = parseFloat(height) || 750;
     updateDeskHeight(newHeight);
 
     currentHeight = parseFloat(height);
@@ -126,7 +126,7 @@ function quickStand() {
     if (preferences.standing.length === 0) return alert('No standing height saved');
     //const height = preferences.standing[preferences.standing.length - 1];
     const height = document.getElementById('quick-stand-height').value;
-    updateDeskHeight(height * 10);
+    updateDeskHeight(height);
     currentHeight = height;
     updateCurrentHeight();
     return true;
@@ -137,7 +137,7 @@ function quickSit() {
     if (preferences.sitting.length === 0) return alert('No sitting height saved');
     //const height = preferences.sitting[preferences.sitting.length - 1];
     const height = document.getElementById('quick-sit-height').value;
-    updateDeskHeight(height * 10);
+    updateDeskHeight(height);
     currentHeight = height;
     updateCurrentHeight();
     return true;
@@ -146,7 +146,7 @@ function quickSit() {
 // Reset to default
 function quickReset() {
     updateDeskHeight(1000);
-    currentHeight = 100;
+    currentHeight = 1000;
     updateCurrentHeight();
     return true;
 }
