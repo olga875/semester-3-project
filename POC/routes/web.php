@@ -3,5 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HelloController;
 
-Route::get('/', [HelloController::class, 'index'])->name('desk.index');
-Route::post('/', [HelloController::class, 'updateDesk'])->name('desk.update');
+Route::get('/', function() {
+    return view('HeightControl');
+});
+
+Route::post('/update-height', [HelloController::class, 'updateHeight']);
