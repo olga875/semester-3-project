@@ -11,7 +11,7 @@ class HelloController extends Controller
     public function index()
     {
         $height = 750; // Default height
-        return view('welcome', compact('height'));
+        return view('HeightControl');
     }
 
     public function updateDesk(Request $request)

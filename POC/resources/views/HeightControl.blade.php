@@ -22,8 +22,13 @@
             <h2>Real-time Desk Control</h2>
             
             <div class="input-group">
-                <label>Desk Height (cm)</label>
-                <input type="number" id="height-input" placeholder="Enter height" min="60" max="130">
+                <form method="POST" action="{{ route('desk.update') }}">
+                    @csrf
+                    <label>Height (mm):
+                        <input type="number" id="height-input" name="height" value="{{ $height ?? 750 }}" min="500" max="1300">
+                    </label>
+                    <button class="button-group" onclick="applyHeight()" type="submit">Adjust Height</button>
+                </form>
             </div>
 
             <div class="checkbox-group">
@@ -32,7 +37,6 @@
             </div>
 
             <div class="button-group">
-                <button onclick="applyHeight()">Apply Height</button>
                 <button onclick="saveAsDefault()">Save as Default</button>
             </div>
         </section>
@@ -41,34 +45,59 @@
             <h2>Saved Preferences</h2>
             
             <div class="dropdown-group">
-                <div>
-                    <label>Sitting Height</label>
-                    <select id="sitting-preset">
-                        <option value="">Select sitting height...</option>
-                    </select>
-                    <button onclick="removeSittingHeight()" class="remove-btn">Remove Selected</button>
-                </div>
-                
-                <div>
-                    <label>Standing Height</label>
-                    <select id="standing-preset">
-                        <option value="">Select standing height...</option>
-                    </select>
-                    <button onclick="removeStandingHeight()" class="remove-btn">Remove Selected</button>
-                </div>
-            </div>
+                 <form method="POST" action="{{route('desk.save')}}" onsubmit="return savePreferences()">
+                    @csrf
+                    <div>
+                        <label>Sitting Height</label>
+                        <select id="sitting-preset">
+                            <option name="sitting_height" value=""></option>
+                        </select>
+                        <button onclick="removeSittingHeight()" class="remove-btn">Remove Selected</button>
+                    </div>
 
-            <button onclick="applyPreset()">Apply Selected Height</button>
+                    <div>
+                        <label>Standing Height</label>
+                        <select id="standing-preset">
+                            <option name="standing_height" value=""></option>
+                        </select>
+                        <button onclick="removeStandingHeight()" class="remove-btn">Remove Selected</button>
+                    </div>
+                    <button type="submit">Save preferences</button>
+                </form>
+            </div>
+            
+            <!--
+            <form method="POST" action="{{route('desk.save')}}" onsubmit="return applyPreset()">
+                @csrf
+                <input type="hidden" name="height" id="hidden-height">
+                <button type="submit">Apply Selected Height</button>
+            </form>
+-->
+
         </section>
     </main>
 
     <!-- Current Height Display -->
-    <div id="current-height" class="current-height">Current Height: 100 cm</div>
+    <div id="current-height" class="current-height">Current Height: 1000 mm</div>
 
     <footer class="bottom-bar">
-        <button onclick="quickStand()" class="stand-btn">Stand</button>
-        <button onclick="quickSit()" class="sit-btn">Sit</button>
-        <button onclick="quickReset()" class="reset-btn">Reset</button>
+        <form method="POST" action="{{route('desk.update')}}" onsubmit="return quickStand()">
+            @csrf
+            <input type="hidden" id="quick-stand-height" name="height" value="">     <!--value="{{ $preference->standing_height ?? 1000 }}"-->
+            <button type="submit" class="stand-btn">Stand</button>
+        </form>
+
+        <form method="POST" action="{{route('desk.update')}}" onsubmit="return quickSit()">
+            @csrf
+            <input type="hidden" id="quick-sit-height" name="height">        <!-- value="{{ $preference->sitting_height ?? 750 }}"-->
+            <button type="submit" class="sit-btn">Sit</button>
+        </form>
+
+        <form method="POST" action="{{route('desk.update')}}" onsubmit="return quickReset()">
+            @csrf
+            <input type="hidden" id="quick-reset-height" name="height" value="{{ 1000 }}">
+            <button type="submit" class="reset-btn">Reset</button>
+        </form>
     </footer>
 
     <script src="{{ asset('js/HeightControl.js') }}"></script>
