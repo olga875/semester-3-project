@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\Preference;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class HelloController extends Controller
 {
@@ -46,10 +48,34 @@ class HelloController extends Controller
         );
 
 
+
         return view('welcome', [
             'sitting_height' => $data['sitting_height'],
             'standing_height' => $data['standing_height']
         ]);
 
+    }
+
+    public function saveHeights(Request $request)
+    {
+        $data = $request->validate([
+            'sitting_height' => 'nullable|numeric',
+            'standing_height' => 'nullable|numeric',
+        ]);
+
+        $user = Auth::user() ?? User::first();
+        if (!$user) {
+            return back()->with('error', 'There is no such a user.');
+        }
+
+        if (array_key_exists('sitting_height', $data)) {
+            $user->sitting_height = $data['sitting_height'];
+        }
+        if (array_key_exists('standing_height', $data)) {
+            $user->standing_height = $data['standing_height'];
+        }
+        $user->save();
+
+        return back()->with('status', 'Heights saved.');
     }
 }

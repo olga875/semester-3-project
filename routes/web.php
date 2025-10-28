@@ -8,10 +8,13 @@ Route::get('/', function() {
     return view('HeightControl');
 });
 
-Route::post('/update-height', [HelloController::class, 'updateHeight']);
+// Map update-height endpoint to the existing updateDesk method
+Route::post('/update-height', [HelloController::class, 'saveHeights']);
+
+
 Route::get('/', [HelloController::class, 'index'])->name('desk.index');
 Route::post('/update', [HelloController::class, 'updateDesk'])->name('desk.update');
-Route::post('/save', [HelloController::class, 'updatePreferences'])->name('desk.save');
+Route::post('/save', [HelloController::class, 'update-height'])->name('desk.save');
 
 
 Route::get('/register', [AuthController::class, 'ServeRegister'])->name('register.form');
