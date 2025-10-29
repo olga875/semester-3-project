@@ -19,3 +19,7 @@ Route::post('/save', [HelloController::class, 'update-height'])->name('desk.save
 
 Route::get('/register', [AuthController::class, 'ServeRegister'])->name('register.form');
 Route::post("/register", [AuthController::class,"Register"])->name("register");
+
+
+Route::get('/login', [AuthController::class, 'ServeLogin'])->name('login.form');
+Route::post("/login", [AuthController::class, "Login"])->name("login");
