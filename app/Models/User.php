@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\AccessLevels;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -33,6 +34,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'access_level'
     ];
 
     /**
@@ -47,7 +49,13 @@ class User extends Authenticatable
             'password' => 'hashed',
             'sitting_height' => 'integer',
             'standing_height' => 'integer',
+            'access_level' => AccessLevels::class,
         ];
 
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->access_level === AccessLevels::ADMIN;
     }
 }
