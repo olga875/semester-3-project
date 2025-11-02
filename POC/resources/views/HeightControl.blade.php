@@ -25,7 +25,7 @@
             <div class="height-control">
                 <label>Height (mm)</label>
                 <div class="height-input-group">
-                    <input type="number" id="height-input" value="1000" min="600" max="1300" step="1">
+                    <input type="text" id="height-input" value="1000">
                     <div class="control-buttons">
                         <button onmousedown="startMoving('up')" onmouseup="stopMoving()" onmouseleave="stopMoving()" class="control-btn">↑</button>
                         <button onmousedown="startMoving('down')" onmouseup="stopMoving()" onmouseleave="stopMoving()" class="control-btn">↓</button>
@@ -63,6 +63,8 @@
                     </div>
                 </div>
             </div>
+
+            <button onclick="resetToDefault()" class="reset-btn">Reset to Default</button>
         </section>
     </main>
 
