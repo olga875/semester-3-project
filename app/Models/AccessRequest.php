@@ -4,8 +4,11 @@ namespace App\Models;
 
 use App\Enums\AccessLevels;
 use App\Enums\ApprovalState;
+use App\Policies\AccessPolicy;
+use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 use Illuminate\Database\Eloquent\Model;
 
+#[UsePolicy(AccessPolicy::class)]
 class AccessRequest extends Model
 {
     protected $fillable = ['user_id', 'level'];

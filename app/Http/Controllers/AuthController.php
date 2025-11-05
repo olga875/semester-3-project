@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\AccessLevels;
+use App\Enums\ApprovalState;
 use App\Models\AccessRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -56,13 +57,13 @@ class AuthController extends Controller
 
         $user = User::where('email', $validated['email'])->first();
 
-        if (!$user) {
+        if (! $user) {
             return back()->withErrors([
                 'email' => 'Incorrect e-mail or password.',
             ])->onlyInput('email');
         }
 
-        if (!Hash::check($validated['password'], $user['password'])) {
+        if (! Hash::check($validated['password'], $user['password'])) {
             return back()->withErrors([
                 'email' => 'Incorrect e-mail or password.',
             ])->onlyInput('email');
@@ -78,7 +79,30 @@ class AuthController extends Controller
 
     }
 
-    public function ServeAdmin(Request $request) {
-        return view('Admin');
+    public function ServeAdmin(Request $request)
+    {
+        $requests = AccessRequest::where('state', ApprovalState::SUBMITTED)
+            ->with('user')
+            ->get();
+
+        return view('Admin', compact('requests'));
+    }
+
+    public function ApproveAccess(Request $request, AccessRequest $acRequest)
+    {
+        if ($request->user()->cannot('update', $acRequest)) {
+            abort(403, 'error');
+        }
+
+        $validated = $request->validate([
+            'approved' => ['required', 'boolean'],
+        ]);
+
+        if ($validated['approved']) {
+            $user = $acRequest->user;
+            $user->update(['role' => $acRequest->access_level]);
+        }
+
+        return back()->with('status', 'Access request has been saved');
     }
 }

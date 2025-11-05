@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HelloController;
+use App\Http\Middleware\AuthAdminMiddleware;
 
 Route::get('/', function() {
     return view('HeightControl');
@@ -20,4 +21,10 @@ Route::post("/register", [AuthController::class,"Register"])->name("register");
 Route::get('/login', [AuthController::class, 'ServeLogin'])->name('login.form');
 Route::post("/login", [AuthController::class, "Login"])->name("login");
 
-Route::get('admin', [AuthController::class,'ServeAdmin'])->name('admin.panel');
+Route::get('admin', [AuthController::class,'ServeAdmin'])
+    ->middleware(AuthAdminMiddleware::class)
+    ->name('admin.panel');
+
+Route::post('admin/{acRequest}', [AuthController::class,'ApproveAccess'])
+    ->middleware(AuthAdminMiddleware::class)
+    ->name('admin.approval');

@@ -14,13 +14,17 @@ body {
     margin: 1rem 0rem;
 }
 
+.filters h1 {
+    align-self: center;
+}
+
 .list {
     padding: 1rem;
     gap: 1rem;    
     flex: 1;
 }
 
-.user {
+.request {
     display: flex;
     flex-direction: row;
     align-items: center;
