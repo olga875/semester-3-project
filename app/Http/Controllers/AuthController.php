@@ -56,7 +56,13 @@ class AuthController extends Controller
 
         $user = User::where('email', $validated['email'])->first();
 
-        if (! Hash::check($validated['password'], $user['password']) || ! $user) {
+        if (!$user) {
+            return back()->withErrors([
+                'email' => 'Incorrect e-mail or password.',
+            ])->onlyInput('email');
+        }
+
+        if (!Hash::check($validated['password'], $user['password'])) {
             return back()->withErrors([
                 'email' => 'Incorrect e-mail or password.',
             ])->onlyInput('email');
