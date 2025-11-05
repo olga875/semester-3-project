@@ -68,7 +68,11 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('desk.index');
+        return redirect()->route('home');
 
+    }
+
+    public function ServeAdmin(Request $request) {
+        return view('Admin');
     }
 }
