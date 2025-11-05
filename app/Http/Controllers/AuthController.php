@@ -101,7 +101,11 @@ class AuthController extends Controller
         if ($validated['approved']) {
             $user = $acRequest->user;
             $user->update(['role' => $acRequest->access_level]);
+            $acRequest->update(['state' => ApprovalState::APPROVED]);
+        } else {
+            $acRequest->update(['state' => ApprovalState::REJECTED]);
         }
+        
 
         return back()->with('status', 'Access request has been saved');
     }
