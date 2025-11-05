@@ -1,130 +1,141 @@
-// Store preferences
-let preferences = JSON.parse(localStorage.getItem('deskPreferences')) || {
-    sitting: [],
-    standing: []
-};
+let currentHeight = 1000;
+let sittingHeight = localStorage.getItem('sittingHeight') || null;
+let standingHeight = localStorage.getItem('standingHeight') || null;
+let moveInterval = null;
+let moveSpeed = 1;
 
-let currentHeight = 100; // Default height in cm
-
-// Initialize on page load
+// Initialize page and set up event listeners
 document.addEventListener('DOMContentLoaded', function() {
-    loadPreferences();
     updateCurrentHeight();
+    updateSavedHeights();
     
-    // Checkbox logic - only one at a time
-    document.querySelectorAll('#save-sitting, #save-standing').forEach(cb => {
-        cb.addEventListener('change', function() {
-            if (this.checked) document.querySelectorAll('#save-sitting, #save-standing').forEach(other => { if (other !== this) other.checked = false; });
-        });
+    const input = document.getElementById('height-input');
+    
+    // Handle real-time input changes
+    input.addEventListener('input', function() {
+        if (this.value === '') return;
+        let value = parseInt(this.value);
+        if (isNaN(value)) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+            return;
+        }
+        if (value >= 600 && value <= 1300) {
+            currentHeight = value;
+            updateCurrentHeight();
+            updateDeskHeight(value);
+        }
     });
     
-    // Dropdown logic - only one at a time
-    document.getElementById('sitting-preset').addEventListener('change', function() { if (this.value) document.getElementById('standing-preset').value = ''; });
-    document.getElementById('standing-preset').addEventListener('change', function() { if (this.value) document.getElementById('sitting-preset').value = ''; });
+    // Validate input when user finishes editing
+    input.addEventListener('blur', function() {
+        let value = parseInt(this.value);
+        if (isNaN(value) || this.value === '') {
+            this.value = currentHeight;
+            return;
+        }
+        value = Math.max(600, Math.min(1300, value));
+        this.value = value;
+        currentHeight = value;
+        updateCurrentHeight();
+        updateDeskHeight(value);
+    });
+    
+    // Only allow numeric input
+    input.addEventListener('keypress', function(e) {
+        if (e.keyCode < 48 || e.keyCode > 57) e.preventDefault();
+    });
 });
 
-// Apply height from input
-function applyHeight() {
-    const height = document.getElementById('height-input').value;
-    if (!height) return alert('Please enter a height value');
-    updateDeskHeight(parseFloat(height) * 10);
-    currentHeight = parseFloat(height);
-    updateCurrentHeight();
+// Movement controls - start continuous height adjustment
+function startMoving(direction) {
+    moveSpeed = 1;
+    moveInterval = setInterval(() => {
+        let newHeight = direction === 'up' ? 
+            Math.min(1300, currentHeight + Math.round(moveSpeed)) : 
+            Math.max(600, currentHeight - Math.round(moveSpeed));
+        
+        if (newHeight !== currentHeight) {
+            currentHeight = newHeight;
+            document.getElementById('height-input').value = currentHeight;
+            updateCurrentHeight();
+            updateDeskHeight(currentHeight);
+        }
+        moveSpeed = Math.min(10, moveSpeed * 1.1);
+    }, 100);
 }
 
-// Save as default preference
-function saveAsDefault() {
-    const height = document.getElementById('height-input').value;
-    const sitting = document.getElementById('save-sitting').checked;
-    const standing = document.getElementById('save-standing').checked;
-    
-    if (!height) return alert('Please enter a height value');
-    if (!sitting && !standing) return alert('Please select sitting or standing height');
-    
-    if (sitting) preferences.sitting.push(parseFloat(height));
-    if (standing) preferences.standing.push(parseFloat(height));
-    
-    localStorage.setItem('deskPreferences', JSON.stringify(preferences));
-    loadPreferences();
+// Stop continuous movement
+function stopMoving() {
+    if (moveInterval) {
+        clearInterval(moveInterval);
+        moveInterval = null;
+        moveSpeed = 1;
+    }
 }
 
-// Remove sitting height
-function removeSittingHeight() {
-    const value = document.getElementById('sitting-preset').value;
-    if (!value) return alert('Please select a sitting height to remove');
-    preferences.sitting = preferences.sitting.filter(h => h != value);
-    localStorage.setItem('deskPreferences', JSON.stringify(preferences));
-    loadPreferences();
-    document.getElementById('sitting-preset').value = '';
+// Save functions - store current height as preference
+function saveSittingHeight() {
+    sittingHeight = currentHeight;
+    localStorage.setItem('sittingHeight', sittingHeight);
+    updateSavedHeights();
 }
 
-// Remove standing height
-function removeStandingHeight() {
-    const value = document.getElementById('standing-preset').value;
-    if (!value) return alert('Please select a standing height to remove');
-    preferences.standing = preferences.standing.filter(h => h != value);
-    localStorage.setItem('deskPreferences', JSON.stringify(preferences));
-    loadPreferences();
-    document.getElementById('standing-preset').value = '';
+function saveStandingHeight() {
+    standingHeight = currentHeight;
+    localStorage.setItem('standingHeight', standingHeight);
+    updateSavedHeights();
 }
 
-// Load saved preferences into dropdowns
-function loadPreferences() {
-    const sitting = document.getElementById('sitting-preset');
-    const standing = document.getElementById('standing-preset');
-    
-    sitting.innerHTML = '<option value="">Select sitting height...</option>';
-    standing.innerHTML = '<option value="">Select standing height...</option>';
-    
-    preferences.sitting.forEach(h => sitting.innerHTML += `<option value="${h}">${h} cm</option>`);
-    preferences.standing.forEach(h => standing.innerHTML += `<option value="${h}">${h} cm</option>`);
+// Apply saved heights
+function applySittingHeight() {
+    if (!sittingHeight) return;
+    applyHeight(parseInt(sittingHeight));
 }
 
-// Apply selected preset
-function applyPreset() {
-    const height = document.getElementById('sitting-preset').value || document.getElementById('standing-preset').value;
-    if (!height) return alert('Please select a preset height');
-    updateDeskHeight(parseFloat(height) * 10);
-    currentHeight = parseFloat(height);
-    updateCurrentHeight();
+function applyStandingHeight() {
+    if (!standingHeight) return;
+    applyHeight(parseInt(standingHeight));
 }
 
-// Quick stand button
-function quickStand() {
-    if (preferences.standing.length === 0) return alert('No standing height saved');
-    const height = preferences.standing[preferences.standing.length - 1];
-    updateDeskHeight(height * 10);
+// Reset to default height
+function resetToDefault() {
+    applyHeight(1000);
+}
+
+// Helper function to apply any height value
+function applyHeight(height) {
     currentHeight = height;
+    document.getElementById('height-input').value = height;
     updateCurrentHeight();
+    updateDeskHeight(height);
 }
 
-// Quick sit button
-function quickSit() {
-    if (preferences.sitting.length === 0) return alert('No sitting height saved');
-    const height = preferences.sitting[preferences.sitting.length - 1];
-    updateDeskHeight(height * 10);
-    currentHeight = height;
-    updateCurrentHeight();
+// UI update functions
+function updateSavedHeights() {
+    document.getElementById('sitting-display').textContent = sittingHeight ? `${sittingHeight} mm` : 'Not set';
+    document.getElementById('standing-display').textContent = standingHeight ? `${standingHeight} mm` : 'Not set';
+    document.getElementById('sitting-apply-btn').disabled = !sittingHeight;
+    document.getElementById('standing-apply-btn').disabled = !standingHeight;
 }
 
-// Reset to default
-function quickReset() {
-    updateDeskHeight(1000);
-    currentHeight = 100;
-    updateCurrentHeight();
-}
-
-// Update current height display
 function updateCurrentHeight() {
-    document.getElementById('current-height').textContent = `Current Height: ${currentHeight} cm`;
+    document.getElementById('current-height').textContent = `Current Height: ${currentHeight} mm`;
 }
 
-// API call to update desk height
+// Navigation placeholder
+function goToIntervals() {
+    alert('Time Intervals feature coming soon!');
+}
+
+// API communication - send height changes to server
 async function updateDeskHeight(heightMm) {
     try {
         await fetch('/update-height', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') },
+            headers: { 
+                'Content-Type': 'application/json', 
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') 
+            },
             body: JSON.stringify({ height: heightMm })
         });
     } catch (error) {

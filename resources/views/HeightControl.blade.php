@@ -12,6 +12,7 @@
         <h1>Employee Dashboard</h1>
         <div class="nav-buttons">
             <button>Timetable</button>
+            <button onclick="goToIntervals()">Time Intervals</button>
             <button>Settings</button>
             <button>Logout</button>
         </div>
@@ -19,57 +20,56 @@
 
     <main class="main-container">
         <section class="left-section">
-            <h2>Real-time Desk Control</h2>
+            <h2>Desk Control</h2>
             
-            <div class="input-group">
-                <label>Desk Height (cm)</label>
-                <input type="number" id="height-input" placeholder="Enter height" min="60" max="130">
+            <div class="height-control">
+                <label>Height (mm)</label>
+                <div class="height-input-group">
+                    <input type="text" id="height-input" value="1000">
+                    <div class="control-buttons">
+                        <button onmousedown="startMoving('up')" onmouseup="stopMoving()" onmouseleave="stopMoving()" class="control-btn">↑</button>
+                        <button onmousedown="startMoving('down')" onmouseup="stopMoving()" onmouseleave="stopMoving()" class="control-btn">↓</button>
+                    </div>
+                </div>
             </div>
 
-            <div class="checkbox-group">
-                <label><input type="checkbox" id="save-sitting">Save as Sitting Height</label>
-                <label><input type="checkbox" id="save-standing">Save as Standing Height</label>
+            <div class="save-buttons">
+                <button onclick="saveSittingHeight()">Save as Sitting Height</button>
+                <button onclick="saveStandingHeight()">Save as Standing Height</button>
             </div>
+        </section>
 
-            <div class="button-group">
-                <button onclick="applyHeight()">Apply Height</button>
-                <button onclick="saveAsDefault()">Save as Default</button>
-            </div>
+        <section class="middle-section">
+            <!-- Empty space for future desk animation -->
         </section>
 
         <section class="right-section">
             <h2>Saved Preferences</h2>
             
-            <div class="dropdown-group">
-                <div>
+            <div class="saved-heights">
+                <div class="height-display">
                     <label>Sitting Height</label>
-                    <select id="sitting-preset">
-                        <option value="">Select sitting height...</option>
-                    </select>
-                    <button onclick="removeSittingHeight()" class="remove-btn">Remove Selected</button>
+                    <div class="height-row">
+                        <div id="sitting-display" class="height-value">Not set</div>
+                        <button onclick="applySittingHeight()" id="sitting-apply-btn" class="apply-btn" disabled>Apply</button>
+                    </div>
                 </div>
                 
-                <div>
+                <div class="height-display">
                     <label>Standing Height</label>
-                    <select id="standing-preset">
-                        <option value="">Select standing height...</option>
-                    </select>
-                    <button onclick="removeStandingHeight()" class="remove-btn">Remove Selected</button>
+                    <div class="height-row">
+                        <div id="standing-display" class="height-value">Not set</div>
+                        <button onclick="applyStandingHeight()" id="standing-apply-btn" class="apply-btn" disabled>Apply</button>
+                    </div>
                 </div>
             </div>
 
-            <button onclick="applyPreset()">Apply Selected Height</button>
+            <button onclick="resetToDefault()" class="reset-btn">Reset to Default</button>
         </section>
     </main>
 
     <!-- Current Height Display -->
-    <div id="current-height" class="current-height">Current Height: 100 cm</div>
-
-    <footer class="bottom-bar">
-        <button onclick="quickStand()" class="stand-btn">Stand</button>
-        <button onclick="quickSit()" class="sit-btn">Sit</button>
-        <button onclick="quickReset()" class="reset-btn">Reset</button>
-    </footer>
+    <div id="current-height" class="current-height">Current Height: 1000 mm</div>
 
     <script src="{{ asset('js/HeightControl.js') }}"></script>
 </body>

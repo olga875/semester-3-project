@@ -9,10 +9,6 @@ Route::get('/', function() {
 });
 
 // Map update-height endpoint to the existing updateDesk method
-Route::post('/update-height', [HelloController::class, 'saveHeights']);
-
-
-Route::get('/', [HelloController::class, 'index'])->name('desk.index');
 Route::post('/update', [HelloController::class, 'updateDesk'])->name('desk.update');
 Route::post('/save', [HelloController::class, 'update-height'])->name('desk.save');
 
