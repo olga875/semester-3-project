@@ -9,9 +9,16 @@ Route::get('/', function() {
     return view('HeightControl');
 })->name('home');
 
+// Desk movement endpoint used by front-end
+Route::post('/update-height', [HelloController::class, 'updateDesk'])->name('desk.updateHeight');
+
+// Preferences save endpoints
+Route::post('/preferences/sitting', [HelloController::class, 'applySittingHeight'])->name('preferences.sitting');
+Route::post('/preferences/standing', [HelloController::class, 'applyStandingHeight'])->name('preferences.standing');
+
 // Map update-height endpoint to the existing updateDesk method
 Route::post('/update', [HelloController::class, 'updateDesk'])->name('desk.update');
-Route::post('/save', [HelloController::class, 'update-height'])->name('desk.save');
+Route::post('/save', [HelloController::class, 'updateDesk'])->name('desk.save');
 
 
 Route::get('/register', [AuthController::class, 'ServeRegister'])->name('register.form');

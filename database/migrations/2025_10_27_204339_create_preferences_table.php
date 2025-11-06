@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('preferences', function (Blueprint $table) {
             $table->id();
-            //$table->unsignedBigInteger('user_id');
-            //$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('sitting_height');
             $table->integer('standing_height');
             $table->timestamps();

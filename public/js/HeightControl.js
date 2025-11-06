@@ -87,14 +87,46 @@ function saveStandingHeight() {
 }
 
 // Apply saved heights
-function applySittingHeight() {
+async function applySittingHeight() {
     if (!sittingHeight) return;
-    applyHeight(parseInt(sittingHeight));
+    const value = parseInt(sittingHeight);
+    applyHeight(value);
+    try {
+        await fetch('/preferences/sitting', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                sitting_height: value,
+                standing_height: parseInt(standingHeight)
+            })
+        });
+    } catch (e) {
+        console.error('Failed to save sitting height:', e);
+    }
 }
 
-function applyStandingHeight() {
+async function applyStandingHeight() {
     if (!standingHeight) return;
-    applyHeight(parseInt(standingHeight));
+    const value = parseInt(standingHeight);
+    applyHeight(value);
+    try {
+        await fetch('/preferences/standing', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                sitting_height : parseInt(sittingHeight),
+                standing_height: value
+            })
+        });
+    } catch (e) {
+        console.error('Failed to save standing height:', e);
+    }
 }
 
 // Reset to default height
