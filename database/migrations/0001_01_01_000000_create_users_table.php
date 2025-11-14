@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->string('access_level')->default(AccessLevels::NONE);
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -35,6 +36,28 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+
+        Schema::create('interval', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id');
+            $table->int('sitting_time');    // in minutes
+            $table->int('standing_time');   // in minutes
+        });
+
+        Schema::create('table', function (Blueprint $table) {
+            $table->id();
+            $table->int('current_height');      // in mm
+            $table->string('location');
+        });
+
+        Schema::create('booking', function (Blueprint $table) {
+            $table->foreignId('table_id');
+            $table->foreignId('user_id');
+            $table->time('start_time');
+            $table->time('end_time');
+            $table->date('booked_day');
+        });
+
     }
 
     /**
