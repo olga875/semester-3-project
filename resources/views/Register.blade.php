@@ -54,7 +54,7 @@
             </label>
         </div>
         <button class="submit-bt" type="submit">Sign Up</button>
-        <a class="text-bt" href="{{ route('register') }}">Already have an account? Click here to login.</a>
+        <a class="text-bt" href="{{ route('login') }}">Already have an account? Click here to login.</a>
     </form>
 
     </body>
