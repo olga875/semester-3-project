@@ -40,7 +40,6 @@
         </section>
 
         <section class="middle-section">
-            <!-- Empty space for future desk animation -->
         </section>
 
         <section class="right-section">
@@ -65,10 +64,12 @@
             </div>
 
             <button onclick="resetToDefault()" class="reset-btn">Reset to Default</button>
+            <a href="{{ route('preferences.customize') }}" class="btn" style="background:#6b4a7c;color:#fff;border:none;border-radius:8px;padding:10px 16px;display:inline-block;margin-top:10px;text-decoration:none;">
+                Customize Cycle
+            </a>
         </section>
     </main>
 
-    <!-- Current Height Display -->
     <div id="current-height" class="current-height">Current Height: 1000 mm</div>
 
     <script src="{{ asset('js/HeightControl.js') }}"></script>

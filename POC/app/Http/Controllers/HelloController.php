@@ -9,7 +9,7 @@ class HelloController extends Controller
 {
     public function index()
     {
-        $height = 750; // Default height
+        $height = 750;
         return view('welcome', compact('height'));
     }
 
