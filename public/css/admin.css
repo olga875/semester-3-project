@@ -1,0 +1,38 @@
+
+body {
+    flex-direction: row;
+}
+
+.filters, .list {
+    display: flex;
+    flex-direction: column;
+}
+
+.filters {
+    width: 15%;
+    border-right: 2px solid var(--color-primary);
+    margin: 1rem 0rem;
+}
+
+.filters h1 {
+    align-self: center;
+}
+
+.list {
+    padding: 1rem;
+    gap: 1rem;    
+    flex: 1;
+}
+
+.request {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex: 1;
+    max-height: min-content;
+    justify-content: space-between;
+    padding: 0rem 1rem;
+    background-color: var(--color-secondary);
+    color: white;
+    border-radius: 1rem;
+}
