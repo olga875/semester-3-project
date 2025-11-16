@@ -9,8 +9,8 @@ class PicoController extends Controller
 {
     public function blink()
     {
-        $server = env(MQTT_HOST);
-        $port = env(MQTT_PORT);
+        $server = env('MQTT_HOST');
+        $port = env('MQTT_PORT');
         $username = '';
         $password = '';
         $client_id = 'phpMQTT-publisher';
