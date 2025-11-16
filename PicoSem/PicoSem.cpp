@@ -4,9 +4,10 @@
 #include "pico/cyw43_arch.h"
 #include <lwip/apps/mqtt.h>
 #include <lwip/ip_addr.h>
+#include "config.h"
 
-const char *WIFI_SSID = "Matt";
-const char *WIFI_PASS = "mtrdl003";
+const char *PICO_WIFI_SSID = WIFI_SSID;
+const char *PICO_WIFI_PASS = WIFI_PASS;
 ip_addr_t BROKER_IP;
 volatile bool blink_request = false;
 const uint LED = 7;
@@ -83,7 +84,7 @@ int main()
     {
         printf("Connected to WiFi successfully.\n");
     }
-    int ipconvert = ipaddr_aton("172.20.10.8", &BROKER_IP);
+    int ipconvert = ipaddr_aton(BROKER_IP_STRING, &BROKER_IP);
     if (ipconvert == 0)
     {
         printf("Failed to parse broker IP.\n");
