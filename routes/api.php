@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IntervalController;
+use App\Http\Controllers\AuthController;
+Route::post('/login', [AuthController::class, 'Login']);
 
 Route::get('/intervals', [IntervalController::class, 'index']);
 Route::post('/intervals', [IntervalController::class, 'store']);

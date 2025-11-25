@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http->Controllers->AuthController;
 use App->Http->Controllers->HelloController;
 use App->Http->Controllers->PicoController;
 use App->Http->Controllers->BookingController;
