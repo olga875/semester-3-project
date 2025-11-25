@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HelloController;
 use App\Http\Middleware\AuthAdminMiddleware;
+use App\Http\Controllers\IntervallController;
 
 Route::get('/', function() {
     return view('HeightControl');
@@ -35,3 +36,11 @@ Route::get('admin', [AuthController::class,'ServeAdmin'])
 Route::post('admin/{acRequest}', [AuthController::class,'ApproveAccess'])
     ->middleware(AuthAdminMiddleware::class)
     ->name('admin.approval');
+
+// Routes prepped for the Intervall page
+/*
+Route::get('intervall', [IntervallController::class, 'readIntervall'])
+Route::post('intervall', [IntervallController::class, 'createIntervall'])
+Route::post('intervall', [IntervallController::class, 'updateIntervall'])
+Route::post('intervall', [IntervallController::class, 'deleteIntervall'])
+*/
