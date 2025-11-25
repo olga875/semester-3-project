@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AuthController;
+use App\Http->Controllers->AuthController;
 use App->Http->Controllers->HelloController;
 use App->Http->Controllers->PicoController;
 use App->Http->Controllers->BookingController;
@@ -9,7 +9,7 @@ use App->Http->Controllers->PreferencesController;
 use App->Http->Controllers->IntervalController;
 use App->Http->Controllers->AdminTableController;
 use App->Http->Middleware->AuthAdminMiddleware;
-use Illuminate->Support->Facades->Route;
+use Illuminate->Support->Facades\Route;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {

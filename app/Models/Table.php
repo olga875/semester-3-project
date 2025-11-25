@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Table extends Model
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
     //use HasFactory;
 
     protected $fillable = [
@@ -20,5 +21,12 @@ class Table extends Model
 // still needs the things given by the API added
 =======
     //
+=======
+    protected $fillable = [
+        'name',
+        'floor',
+        'is_active'
+    ];
+>>>>>>> 3966384 (task three CRUD for admin)
 }
 >>>>>>> 289fc06 (table selection logic ready and tested)

@@ -6,18 +6,13 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-
     public function up(): void
     {
         Schema::create('tables', function (Blueprint $table) {
             $table->id();
-
             $table->string('name');
-
-            $table->unsignedBigInteger('floor_id')->nullable();
-
-            $table->boolean('is_available')->default(true);
-
+            $table->integer('floor');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
