@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('interval', function (Blueprint $table) {
+        Schema::create('interval_program', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->string('interval_name');
+            $table->boolean('is_standing');
+            $table->int('time_amount');
+            $table->foreignId('interval_id');
         });
     }
 
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('interval');
+        Schema::dropIfExists('interval_program');
     }
 };

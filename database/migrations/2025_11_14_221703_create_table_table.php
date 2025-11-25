@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // still needs the data given by the API added
         Schema::create('table', function (Blueprint $table) {
             $table->id();
             $table->int('current_height');      // in mm
-            $table->string('location');
+            $table->string('location_building');
+            $table->string('location_room');
+            $table->string('name');
         });
     }
 
