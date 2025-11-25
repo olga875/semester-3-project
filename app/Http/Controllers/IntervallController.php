@@ -10,25 +10,50 @@ class IntervallController extends Controller
 {
     public function createIntervall(Request $request)
     {
-        /*$data = $request->validate([
+        $data = $request->validate([
+            'interval_name' => 'string',
 
-        ])*/
+        ]);
+
+        if($data) {
+            Interval::create([
+                'interval_name' => $data['interval_name'],
+
+            ]);
+            return redirect()->route('interval')->with('success', 'Interval added successfully!');
+        }
     }
 
     public function readIntervall()
     {
-        /*$user_id = auth()->id();
+        $user_id = auth()->id();
         $intervalls = Interval::where('user_id', $user_id)->get();
-        return view('intervall', ['intervalls' => $intervalls];)*/
+        return view('intervall', ['intervalls' => $intervalls]);
     }
 
-    public function updateIntervall()
+    public function editIntervall(Interval $interval)
     {
-
+        return view('interval', ['interval' => $interval]);
     }
 
-    public function deleteIntervall()
+    public function updateIntervall(Request $request, Interval $interval)
     {
+        $data = $request->validate([
+            'interval_name' => 'string'
 
+        ]);
+
+        $interval->update([
+            'interval_name' => $data['interval_name'],
+
+        ]);
+
+        return redirect()->route('interval')->with('success', 'Interval updated successfully!');
+    }
+
+    public function deleteIntervall(Interval $interval)
+    {
+        $interval->delete();
+        return redirect()->route('interval')->with('success', 'Interval deleted successfully!');
     }
 }

@@ -41,6 +41,7 @@ Route::post('admin/{acRequest}', [AuthController::class,'ApproveAccess'])
 /*
 Route::get('intervall', [IntervallController::class, 'readIntervall'])
 Route::post('intervall', [IntervallController::class, 'createIntervall'])
+Route::post('intervall', [IntervallController::class, 'editIntervall'])
 Route::post('intervall', [IntervallController::class, 'updateIntervall'])
 Route::post('intervall', [IntervallController::class, 'deleteIntervall'])
 */
