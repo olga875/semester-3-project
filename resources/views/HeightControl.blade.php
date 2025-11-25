@@ -1,6 +1,3 @@
-height control blade 
-
-@ -0,0 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,6 +69,25 @@ height control blade
             </a>
         </section>
     </main>
+        @if(isset($pref))
+        <div class="current-cycle"
+         style="
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #6b4a7c;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            z-index: 999;
+            ">
+            <strong>Current Cycle:</strong>
+            {{ ucfirst($pref['mode']) }} 
+            ({{ $pref['sit_minutes'] }} / {{ $pref['stand_minutes'] }} min)
+            </div>
+            @endif
 
     <div id="current-height" class="current-height">Current Height: 1000 mm</div>
 
