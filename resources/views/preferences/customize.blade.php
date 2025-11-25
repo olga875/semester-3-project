@@ -26,7 +26,7 @@
         <section class="panel panel-left">
             <h2 class="panel-title">Custom</h2>
 
-            <form method="POST" action="{{ route('preferences.customize.save') }}" class="custom-form">
+            <form method="POST" action="{{ route('preferences.saveCustom') }}" class="custom-form">
                 @csrf
                 <div class="field">
                     <label for="sit_minutes">Sitting</label>
@@ -61,7 +61,7 @@
                     <h3>High Focus Mode</h3>
                     <p>Sitting = 50 mins<br>Standing = 10 mins</p>
                 </div>
-                <form method="POST" action="{{ route('preferences.customize.preset', 'focus') }}">
+                <form method="POST" action="{{ route('preferences.applyPreset', 'focus') }}">
                     @csrf
                     <button class="btn btn-secondary">Select</button>
                 </form>
@@ -72,7 +72,7 @@
                     <h3>Balanced mode</h3>
                     <p>Sitting = 40 mins<br>Standing = 20 mins</p>
                 </div>
-                <form method="POST" action="{{ route('preferences.customize.preset', 'balanced') }}">
+                <form method="POST" action="{{ route('preferences.applyPreset', 'balanced') }}">
                     @csrf
                     <button class="btn btn-secondary">Select</button>
                 </form>
@@ -83,7 +83,7 @@
                     <h3>Active Mode</h3>
                     <p>Sitting = 30 mins<br>Standing = 30 mins</p>
                 </div>
-                <form method="POST" action="{{ route('preferences.customize.preset', 'active') }}">
+                <form method="POST" action="{{ route('preferences.applyPreset', 'active') }}">
                     @csrf
                     <button class="btn btn-secondary">Select</button>
                 </form>
