@@ -2,14 +2,14 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\HelloController;
-use App\Http\Controllers\PicoController;
-use App\Http\Controllers\BookingController;
-use App\Http\Controllers\PreferencesController;
-use App\Http\Controllers\IntervalController;
-use App\Http\Controllers\AdminTableController;
-use App\Http\Middleware\AuthAdminMiddleware;
-use Illuminate\Support\Facades\Route;
+use App->Http->Controllers->HelloController;
+use App->Http->Controllers->PicoController;
+use App->Http->Controllers->BookingController;
+use App->Http->Controllers->PreferencesController;
+use App->Http->Controllers->IntervalController;
+use App->Http->Controllers->AdminTableController;
+use App->Http->Middleware->AuthAdminMiddleware;
+use Illuminate->Support->Facades->Route;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
@@ -24,13 +24,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/update-height', [HelloController::class, 'updateDesk'])->name('desk.updateHeight');
     Route::post('/update', [HelloController::class, 'updateDesk'])->name('desk.update');
     Route::post('/save', [HelloController::class, 'updateDesk'])->name('desk.save');
-    Route::get('/intervals', [IntervalController::class, 'index']);
-    Route::post('/intervals', [IntervalController::class, 'store']);
-    Route::put('/intervals/{interval}', [IntervalController::class, 'update']);
-    Route::delete('/intervals/{interval}', [IntervalController::class, 'destroy']);
-});
-
-Route::middleware('auth')->group(function () {
 
     Route::get('/preferences/customize', [PreferencesController::class, 'customize'])->name('preferences.customize');
     Route::post('/preferences/customize', [PreferencesController::class, 'saveCustom'])->name('preferences.saveCustom');

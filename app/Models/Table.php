@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Table extends Model
 {
+<<<<<<< HEAD
     //use HasFactory;
 
     protected $fillable = [
@@ -17,3 +18,7 @@ class Table extends Model
 }
 
 // still needs the things given by the API added
+=======
+    //
+}
+>>>>>>> 289fc06 (table selection logic ready and tested)
