@@ -24,6 +24,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/update-height', [HelloController::class, 'updateDesk'])->name('desk.updateHeight');
     Route::post('/update', [HelloController::class, 'updateDesk'])->name('desk.update');
     Route::post('/save', [HelloController::class, 'updateDesk'])->name('desk.save');
+    Route::get('/intervals', [IntervalController::class, 'index']);
+    Route::post('/intervals', [IntervalController::class, 'store']);
+    Route::put('/intervals/{interval}', [IntervalController::class, 'update']);
+    Route::delete('/intervals/{interval}', [IntervalController::class, 'destroy']);
+});
+
+Route::middleware('auth')->group(function () {
 
     Route::get('/preferences/customize', [PreferencesController::class, 'customize'])->name('preferences.customize');
     Route::post('/preferences/customize', [PreferencesController::class, 'saveCustom'])->name('preferences.saveCustom');
