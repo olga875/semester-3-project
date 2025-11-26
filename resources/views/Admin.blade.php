@@ -12,6 +12,7 @@
 @section('content')
     <section class="filters">
         <h1>Options</h1>
+        <a>Building Control</a>
     </section>
     <section class="list">
         @foreach ($requests as $rec)
