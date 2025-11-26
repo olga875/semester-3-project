@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('access_level')->default(AccessLevels::NONE);
+            $table->string('access_level')->default(AccessLevels::NONE->value);
         });
     }
 
