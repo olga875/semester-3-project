@@ -32,6 +32,9 @@ MQTT_PORT=1883 (keep the same as mosquitto uses port 1883)
 
 6. In PicoSem\config.h, change WIFI_SSID & WIFI_PASS & BROKER_IP_STRING (same IP as MQTT_HOST) strings to your own hotspot info.
 
-7. Flash the pico like normal, PicoSem\build\PicoSem.uf2
+7. Run this command to rebuild
+cmake --build . --clean-first
 
-8. php artisan serve, pressing the button should show 3 buzzer beeps and 3 LED flashes.
+8. Flash the pico like normal, PicoSem\build\PicoSem.uf2
+
+9. php artisan serve, pressing the button should show 3 buzzer beeps and 3 LED flashes.
