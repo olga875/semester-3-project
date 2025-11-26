@@ -40,7 +40,7 @@ class IntervallController extends Controller
     {
         $data = $request->validate([
             'interval_name' => 'string'
-
+            // How do I get the specific parts here from the interval, like state and time amount, for each part of the interval?
         ]);
 
         $interval->update([
