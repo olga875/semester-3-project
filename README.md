@@ -3,7 +3,9 @@
 ```
 cd POC
 composer install
-npm install php artisan key:generate
+npm install
+cd ..
+php artisan key:generate
 type nul > database\database.sqlite
 php artisan key:generate
 php artisan migrate:fresh
