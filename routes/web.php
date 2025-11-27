@@ -10,6 +10,10 @@ Route::get('/', function () {
     return view('HeightControl');
 })->middleware('auth')->name('home');
 
+Route::get('/timetable', function () {
+    return view('Timetable');
+})->middleware('auth')->name('timetable');
+
 // Desk movement endpoint used by front-end
 Route::post('/update-height', [HelloController::class, 'updateDesk'])->middleware('auth')->name('desk.updateHeight');
 
