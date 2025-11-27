@@ -35,4 +35,8 @@ Route::post('admin/{acRequest}', [AuthController::class, 'ApproveAccess'])
     ->middleware(AuthAdminMiddleware::class)
     ->name('admin.approval');
 
-Route::get('admin/building', [AdminController::class, 'serveBuildings'])->middleware(AuthAdminMiddleware::class)->name('admin.building');
+Route::get('admin/control', [AdminController::class, 'serveBuildings'])->middleware(AuthAdminMiddleware::class)->name('admin.control');
+
+Route::post('/building', [AdminController::class,'saveBuilding'])->middleware(AuthAdminMiddleware::class)->name('building.post');
+Route::post('/floor', [AdminController::class,'saveFloor'])->middleware(AuthAdminMiddleware::class)->name('floor.post');
+Route::post('/office', [AdminController::class,'saveRoom'])->middleware(AuthAdminMiddleware::class)->name('office.post');
