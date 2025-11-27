@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use Bluerhinos\phpMQTT;
+
 class HelloController extends Controller
 {
     public function index()
@@ -17,20 +19,73 @@ class HelloController extends Controller
         return view('welcome', compact('height'));
     }
 
+    public function blink()
+    {
+        $server = env('MQTT_HOST');
+        $port = env('MQTT_PORT');
+        $username = '';
+        $password = '';
+        $client_id = 'phpMQTT-publisher';
+        $mqtt = new phpMQTT($server, $port, $client_id);
+    
+        if ($mqtt->connect(true, NULL, $username, $password))
+        {
+            $mqtt->publish('pico/blink', 'blink', 0, false);
+            $mqtt->close();
+            return back();
+        }
+        else
+        {
+            return back();
+        }
+    }
+
+    public function Stopblink()
+    {
+        $server = env('MQTT_HOST');
+        $port = env('MQTT_PORT');
+        $username = '';
+        $password = '';
+        $client_id = 'phpMQTT-publisher';
+        $mqtt = new phpMQTT($server, $port, $client_id);
+    
+        if ($mqtt->connect(true, NULL, $username, $password))
+        {
+            $mqtt->publish('pico/Stopblink', 'Stopblink', 0, false);
+            $mqtt->close();
+            return back();
+        }
+        else
+        {
+            return back();
+        }
+    }
+
     public function updateDesk(Request $request)
     {
         $height = $request->input('height', 750);
    
-        $response = Http::put(
+        Http::put(
         'http://localhost:8006/api/v2/F7H1vM3kQ5rW8zT9xG2pJ6nY4dL0aZ3K/desks/91:17:a4:3b:f4:4d/state',
         ['position_mm' => (int)$height]
         );
+        $this->blink();
 
-        return view('welcome', [
-            'height' => $height,
-            'apiResponse' => $response->body()
+        do{
+            $statusResponse = Http::get(
+                'http://localhost:8006/api/v2/F7H1vM3kQ5rW8zT9xG2pJ6nY4dL0aZ3K/desks/91:17:a4:3b:f4:4d/state'
+            );
+            $currentHeight = $statusResponse->json()['position_mm'];
+            $currentStatus = $statusResponse->json()['status'];
+            sleep(2);
+        } while ($currentHeight != (int)$height || $currentStatus != 'Normal'); 
+        
+        $this->Stopblink();
+
+        return response()->json([
+            'status' => 'height_changed',
+            'height' => $currentHeight,
         ]);
-
     }
 
 
