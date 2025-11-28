@@ -28,3 +28,5 @@ button:disabled { background: #999; }
 .tables { height: 65vh; border-radius: 4px; background-color: white;}
 .hours:first-child {border-top-left-radius: 4px;}
 .hours:last-child {border-bottom-left-radius: 4px;}
+
+.timeslot { background-color: #966ab0; color:white; justify-content: center; text-align: center; align-content: center; }

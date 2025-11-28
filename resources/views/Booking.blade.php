@@ -40,6 +40,9 @@
                 <div class="hours" style="grid-row: 7">14:00</div>
                 <div class="hours" style="grid-row: 8">15:00</div>
                 <div class="hours" style="grid-row: 9">16:00</div>
+
+                <div class="timeslot" style="grid-row: 1">Timeslot1</div>
+                <div class="timeslot" style="grid-row: 3/5; grid-column: 8">Timeslot2</div>
             </section>
 
         </section>
