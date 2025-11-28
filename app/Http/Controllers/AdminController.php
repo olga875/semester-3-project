@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Building;
 use App\Models\Floor;
 use App\Models\Room;
+use App\Models\Table;
 use Illuminate\Http\Request;
 
 use App\Models\User;
@@ -88,6 +89,16 @@ class AdminController extends Controller
             ->withErrors(['building_id' => 'Cannot add new floor to building'])
             ->withInput();  
         }
+
+        for ($i = 0; $i < ($room->table_num); $i++) {
+            Table::create([
+                'name' => "Table {($i + 1)}",
+                'room_id' => $room->id,
+                'current_height' => 0,
+                'company'=>$room->company
+            ]);
+        }
+
         return redirect()->route('admin.control');
     }
 }

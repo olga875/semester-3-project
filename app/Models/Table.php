@@ -10,9 +10,9 @@ class Table extends Model
 
     protected $fillable = [
         'current_height',
-        'location_building',
-        'location_room',
-        'name'
+        'name',
+        'room_id',
+        'company'
     ];
 }
 
