@@ -18,7 +18,7 @@ class IntervallController extends Controller
         if($data) {
             Interval::create([
                 'interval_name' => $data['interval_name'],
-
+                
             ]);
             return redirect()->route('interval')->with('success', 'Interval added successfully!');
         }
