@@ -19,6 +19,8 @@ class PicoController extends Controller
         if ($mqtt->connect(true, NULL, $username, $password))
         {
             $mqtt->publish('pico/blink', 'blink', 0, false);
+            sleep(3);
+            $mqtt->publish('pico/Stopblink', 'Stopblink', 0, false);
             $mqtt->close();
             return back();
         }

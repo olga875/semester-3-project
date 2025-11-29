@@ -24,19 +24,19 @@ void led_blink()
 
     gpio_put(LED, ON);
     gpio_put(BUZZER, ON);
-    sleep_ms(500);
+    sleep_ms(200);
     gpio_put(LED, OFF);
     gpio_put(BUZZER, OFF);
-    sleep_ms(500);
+    sleep_ms(200);
     gpio_put(LED, ON);
     gpio_put(BUZZER, ON);
-    sleep_ms(500);
+    sleep_ms(200);
     gpio_put(LED, OFF);
     gpio_put(BUZZER, OFF);
-    sleep_ms(500);
+    sleep_ms(200);
     gpio_put(LED, ON);
     gpio_put(BUZZER, ON);
-    sleep_ms(500);
+    sleep_ms(200);
     gpio_put(LED, OFF);
     gpio_put(BUZZER, OFF);
 }
@@ -48,7 +48,12 @@ void mqtt_incoming_data_cb(void *arg, const u8_t *data, u16_t len, u8_t flags)
     {
         blink_request = true;
     }
+    if(flags == MQTT_DATA_FLAG_LAST && len == 9 && memcmp(data, "Stopblink", 9) == 0)
+    {
+        blink_request = false;
+    }
 }
+
 
 void mqtt_connection_cb(mqtt_client_t *client, void *arg, mqtt_connection_status_t status)
 {
@@ -56,6 +61,7 @@ void mqtt_connection_cb(mqtt_client_t *client, void *arg, mqtt_connection_status
     {
         printf("MQTT callback successful.");
         mqtt_subscribe(client, "pico/blink", 0, NULL, NULL);
+        mqtt_subscribe(client, "pico/Stopblink", 0, NULL, NULL);
         mqtt_set_inpub_callback(client, NULL, mqtt_incoming_data_cb, NULL);
     }
     else
@@ -66,6 +72,11 @@ void mqtt_connection_cb(mqtt_client_t *client, void *arg, mqtt_connection_status
 
 int main()
 {
+    gpio_init(LED);
+    gpio_init(BUZZER);
+    gpio_set_dir(LED, true);
+    gpio_set_dir(BUZZER, true);
+
     stdio_init_all();
 
     // Initialise the Wi-Fi chip
@@ -118,10 +129,11 @@ int main()
     }
     while (true)
     {
-        if(blink_request == true)
+        if(blink_request == false)
         {
             led_blink();
-            blink_request = false;
+            printf("blink!\n");
+            blink_request = true;
         }
         sleep_ms(100);
     }
