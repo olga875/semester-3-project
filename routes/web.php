@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\HelloController;
+use App\Http\Controllers\TablesController;
 use App\Http\Middleware\AuthAdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -11,15 +11,15 @@ Route::get('/', function () {
 })->middleware('auth')->name('home');
 
 // Desk movement endpoint used by front-end
-Route::post('/update-height', [HelloController::class, 'updateDesk'])->middleware('auth')->name('desk.updateHeight');
+Route::post('/update-height', [TablesController::class, 'updateDesk'])->middleware('auth')->name('desk.updateHeight');
 
 // Preferences save endpoints
-Route::post('/preferences/sitting', [HelloController::class, 'applySittingHeight'])->middleware('auth')->name('preferences.sitting');
-Route::post('/preferences/standing', [HelloController::class, 'applyStandingHeight'])->middleware('auth')->name('preferences.standing');
+Route::post('/preferences/sitting', [TablesController::class, 'applySittingHeight'])->middleware('auth')->name('preferences.sitting');
+Route::post('/preferences/standing', [TablesController::class, 'applyStandingHeight'])->middleware('auth')->name('preferences.standing');
 
 // Map update-height endpoint to the existing updateDesk method
-Route::post('/update', [HelloController::class, 'updateDesk'])->middleware('auth')->name('desk.update');
-Route::post('/save', [HelloController::class, 'updateDesk'])->middleware('auth')->name('desk.save');
+Route::post('/update', [TablesController::class, 'updateDesk'])->middleware('auth')->name('desk.update');
+Route::post('/save', [TablesController::class, 'updateDesk'])->middleware('auth')->name('desk.save');
 
 Route::get('/register', [AuthController::class, 'ServeRegister'])->middleware('guest')->name('register.form');
 Route::post('/register', [AuthController::class, 'Register'])->middleware('guest')->name('register');

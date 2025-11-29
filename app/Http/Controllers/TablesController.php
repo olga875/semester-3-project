@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class HelloController extends Controller
+class TablesController extends Controller
 {
     public function index()
     {
