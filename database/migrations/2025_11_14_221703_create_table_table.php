@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\AccessLevels;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('access_level')->default(AccessLevels::NONE);
+        // still needs the data given by the API added
+        Schema::create('tables', function (Blueprint $table) {
+            $table->id();
+            $table->integer('current_height');      // in mm
+            $table->string('name');
         });
+        
     }
 
     /**
@@ -22,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('access_level');
-        });
+        Schema::dropIfExists('table');
     }
 };
