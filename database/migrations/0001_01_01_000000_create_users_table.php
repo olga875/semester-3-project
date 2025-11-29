@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->string('access_level')->default(AccessLevels::NONE);
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

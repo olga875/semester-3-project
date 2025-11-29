@@ -11,7 +11,7 @@
     <header class="app-bar">
         <h1>Employee Dashboard</h1>
         <div class="nav-buttons">
-            <button>Timetable</button>
+            <button onclick="window.location.href='/timetable'">Timetable</button>
             <button onclick="goToIntervals()">Time Intervals</button>
             <button>Settings</button>
             <button>Logout</button>
