@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('interval_program', function (Blueprint $table) {
             $table->id();
             $table->boolean('is_standing');
-            $table->int('time_amount');
+            $table->integer('time_amount');
             $table->foreignId('interval_id');
         });
     }
