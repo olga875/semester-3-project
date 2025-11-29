@@ -36,5 +36,3 @@ Route::get('admin', [AuthController::class,'ServeAdmin'])
 Route::post('admin/{acRequest}', [AuthController::class,'ApproveAccess'])
     ->middleware(AuthAdminMiddleware::class)
     ->name('admin.approval');
-
-Route::get('/booking', [BookingController::class, 'viewBooking'])->middleware("auth")->name('booking.viewBooking');
