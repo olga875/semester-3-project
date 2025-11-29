@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HelloController;
 use App\Http\Middleware\AuthAdminMiddleware;
+use App\Http\Controllers\BookingController;
 
 Route::get('/', function() {
     return view('HeightControl');
