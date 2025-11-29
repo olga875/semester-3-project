@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Preference extends Model
+// class Preference extends Model
+class Interval extends Model
 {
     //use HasFactory;
 

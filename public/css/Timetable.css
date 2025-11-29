@@ -1,0 +1,32 @@
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+
+body { background: #e8e8e8; color: #4a4a4a; height: 100vh; display: flex; flex-direction: column; }
+
+.app-bar { background: #6d4c7d; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+.app-bar h1 { color: #e0e0e0; font-weight: normal; }
+
+.main-container { flex: 1; display: flex; padding: 2rem; gap: 2rem; }
+.left-section, .right-section { flex: 1; }
+
+h2 { color: #4a4a4a; font-size: 1.5rem; font-weight: normal; margin-bottom: 1.5rem; }
+label { color: #7a7a7a; margin-bottom: 0.5rem; display: block; }
+
+button, select { background: white; border: none; padding: 0.8rem; border-radius: 4px; cursor: pointer; }
+button { background: #6d4c7d; color: white; margin-bottom: 0.8rem; }
+button:hover { background: #5a3f6a; }
+
+.nav-buttons { display: flex; gap: 0; }
+.nav-buttons button { background: #8e6b9e; padding: 0.7rem 1.5rem; margin: 0; }
+.nav-buttons button:last-child { background: #a0524d; }
+
+.office-room { background: #f5f5f5; padding: 2rem; border-radius: 8px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; height: fit-content; }
+
+.desk { background: white; border: 2px solid #6d4c7d; padding: 1.5rem; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #6d4c7d; cursor: pointer; transition: all 0.3s; min-height: 80px; }
+
+.desk:hover { background: #6d4c7d; color: white; }
+
+.filters { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.filter-group { display: flex; flex-direction: column; }
+.filter-group select { width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px; }
+.filter-group select:focus { outline: none; border-color: #6d4c7d; }

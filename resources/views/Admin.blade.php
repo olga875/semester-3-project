@@ -12,6 +12,10 @@
 @section('content')
     <section class="filters">
         <h1>Options</h1>
+<<<<<<< HEAD
+=======
+        <a>Building Control</a>
+>>>>>>> 3718dc5504ad4c6853f95a254b951b2fd1a7921f
     </section>
     <section class="list">
         @foreach ($requests as $rec)
