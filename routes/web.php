@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HelloController;
 use App\Http\Middleware\AuthAdminMiddleware;
+use App\Http\Controllers\PicoController;
 use App\Http\Controllers\BookingController;
 
 Route::get('/', function() {
@@ -36,3 +37,5 @@ Route::get('admin', [AuthController::class,'ServeAdmin'])
 Route::post('admin/{acRequest}', [AuthController::class,'ApproveAccess'])
     ->middleware(AuthAdminMiddleware::class)
     ->name('admin.approval');
+
+Route::post('/blink', [PicoController::class,'blink'])->name("blink");
