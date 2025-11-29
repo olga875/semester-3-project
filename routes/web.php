@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HelloController;
 use App\Http\Middleware\AuthAdminMiddleware;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PicoController;
+use App\Http\Controllers\BookingController;
 
 Route::get('/', function () {
     return view('HeightControl');
@@ -40,3 +42,4 @@ Route::post('admin/{acRequest}', [AuthController::class, 'ApproveAccess'])
     ->name('admin.approval');
 
 Route::get('admin/building', [AdminController::class, 'serveBuildings'])->middleware(AuthAdminMiddleware::class)->name('admin.building');
+Route::post('/blink', [PicoController::class,'blink'])->name("blink");
