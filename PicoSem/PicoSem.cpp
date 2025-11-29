@@ -24,19 +24,19 @@ void led_blink()
 
     gpio_put(LED, ON);
     gpio_put(BUZZER, ON);
-    sleep_ms(500);
+    sleep_ms(200);
     gpio_put(LED, OFF);
     gpio_put(BUZZER, OFF);
-    sleep_ms(500);
+    sleep_ms(200);
     gpio_put(LED, ON);
     gpio_put(BUZZER, ON);
-    sleep_ms(500);
+    sleep_ms(200);
     gpio_put(LED, OFF);
     gpio_put(BUZZER, OFF);
-    sleep_ms(500);
+    sleep_ms(200);
     gpio_put(LED, ON);
     gpio_put(BUZZER, ON);
-    sleep_ms(500);
+    sleep_ms(200);
     gpio_put(LED, OFF);
     gpio_put(BUZZER, OFF);
 }
@@ -129,15 +129,11 @@ int main()
     }
     while (true)
     {
-        if(blink_request == true)
+        if(blink_request == false)
         {
-            gpio_put(LED, ON);
-            gpio_put(BUZZER, ON);
-            sleep_ms(500);
-            gpio_put(LED, OFF);
-            gpio_put(BUZZER, OFF);
-            sleep_ms(500);
+            led_blink();
             printf("blink!\n");
+            blink_request = true;
         }
         sleep_ms(100);
     }
