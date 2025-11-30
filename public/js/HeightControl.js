@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (value >= 600 && value <= 1300) {
             currentHeight = value;
             updateCurrentHeight();
-            updateDeskHeight(value);
+            //updateDeskHeight(value);
         }
     });
     
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
         this.value = value;
         currentHeight = value;
         updateCurrentHeight();
-        updateDeskHeight(value);
+        //updateDeskHeight(value);
     });
     
     // Only allow numeric input
@@ -58,7 +58,7 @@ function startMoving(direction) {
             currentHeight = newHeight;
             document.getElementById('height-input').value = currentHeight;
             updateCurrentHeight();
-            updateDeskHeight(currentHeight);
+            //updateDeskHeight(currentHeight);
         }
         moveSpeed = Math.min(10, moveSpeed * 1.1);
     }, 100);
