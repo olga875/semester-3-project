@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use Bluerhinos\phpMQTT;
+
 class TablesController extends Controller
 {
     public function index()
