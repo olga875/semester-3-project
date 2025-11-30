@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->integer('current_height');      // in mm
             $table->string('name');
+               $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
         

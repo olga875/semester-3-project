@@ -11,7 +11,6 @@
         <h1>Employee Dashboard</h1>
         <div class="nav-buttons">
             <button>Timetable</button>
-            <button onclick="goToIntervals()">Time Intervals</button>
             <button>Settings</button>
             <button>Logout</button>
         </div>
@@ -51,7 +50,7 @@
         <section class="right-section">
             
             <label style="margin-top: 4rem">Select Desk</label>
-            <button class="buttons">View Desks</button><br><br>
+            <button class="buttons" onclick="window.location.href='{{route('timetable') }}'">View Desks</button><br><br>
             <label>Start Time</label>
             <input type="datetime-local"><br><br>
             <label>End Time</label>
