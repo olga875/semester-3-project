@@ -6,26 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        // still needs the data given by the API added
         Schema::create('tables', function (Blueprint $table) {
             $table->id();
-            $table->integer('current_height');      // in mm
             $table->string('name');
+            $table->integer('floor');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
-        
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('table');
+        Schema::dropIfExists('tables');
     }
 };

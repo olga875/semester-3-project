@@ -39,7 +39,7 @@ return new class extends Migration
         });
 
         Schema::table('tables', function (Blueprint $table) {
-            $table->string('company_name');
+            $table->string('company');
             $table->foreignUuid("room_id")->constrained("rooms")->cascadeOnDelete();
         });
     }
@@ -54,7 +54,7 @@ return new class extends Migration
         Schema::dropIfExists('rooms');
         Schema::table('table', function (Blueprint $table) {
         $table->dropForeign(['room_id']);
-        $table->dropColumn(['room_id', 'company_name']);
+        $table->dropColumn(['room_id', 'company']);
     });
     }
 };
