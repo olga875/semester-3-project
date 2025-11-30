@@ -28,6 +28,9 @@ allow_anonymous true
 cd "C:\Program Files\mosquitto"
 mosquitto.exe -c mosquitto.conf -v
 
+for Powershell --> 
+./mosquitto.exe -c mosquitto.conf -v
+
 5.  In your .env file, add
 MQTT_HOST=Your Own IP, run ipconfig in cmd to find the IPv4
 MQTT_PORT=1883 (keep the same as mosquitto uses port 1883)
