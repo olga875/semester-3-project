@@ -7,6 +7,9 @@ use App\Http\Middleware\AuthAdminMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PicoController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\PreferencesController;
+use App\Http\Controllers\IntervalController;
+use App\Http\Controllers\AdminTableController;
 
 Route::get('/', function () {
     return view('HeightControl');
@@ -22,6 +25,50 @@ Route::post('/preferences/standing', [TablesController::class, 'applyStandingHei
 // Map update-height endpoint to the existing updateDesk method
 Route::post('/update', [TablesController::class, 'updateDesk'])->middleware('auth')->name('desk.update');
 Route::post('/save', [TablesController::class, 'updateDesk'])->middleware('auth')->name('desk.save');
+
+Route::get('/preferences/customize', [PreferencesController::class, 'customize'])
+    ->middleware('auth')
+    ->name('preferences.customize');
+
+Route::post('/preferences/customize', [PreferencesController::class, 'saveCustom'])
+    ->middleware('auth')
+    ->name('preferences.saveCustom');
+
+Route::post('/preferences/preset/{mode}', [PreferencesController::class, 'applyPreset'])
+    ->middleware('auth')
+    ->name('preferences.applyPreset');
+
+Route::get('/intervals', [IntervalController::class, 'index'])
+    ->middleware('auth')
+    ->name('intervals.index');
+
+Route::post('/intervals', [IntervalController::class, 'store'])
+    ->middleware('auth')
+    ->name('intervals.store');
+
+Route::put('/intervals/{interval}', [IntervalController::class, 'update'])
+    ->middleware('auth')
+    ->name('intervals.update');
+
+Route::delete('/intervals/{interval}', [IntervalController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('intervals.destroy');
+
+Route::get('/admin/tables', [AdminTableController::class, 'index'])
+    ->middleware('auth')
+    ->name('admin.tables.index');
+
+Route::post('/admin/tables', [AdminTableController::class, 'store'])
+    ->middleware('auth')
+    ->name('admin.tables.store');
+
+Route::put('/admin/tables/{table}', [AdminTableController::class, 'update'])
+    ->middleware('auth')
+    ->name('admin.tables.update');
+
+Route::delete('/admin/tables/{table}', [AdminTableController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('admin.tables.destroy');
 
 Route::get('/register', [AuthController::class, 'ServeRegister'])->middleware('guest')->name('register.form');
 Route::post('/register', [AuthController::class, 'Register'])->middleware('guest')->name('register');
