@@ -33,16 +33,12 @@
             <button class="login-bt" type="login">Login</button>
             <a class="text-bt" href="{{ route('register') }}">Already have an account? Click here to login.</a>
         </form>
-<<<<<<< HEAD
- 
-=======
 
         <form method="POST" action="{{ route('blink') }}">
             @csrf
             <button type="submit">Blink LED</button>
         </form>
 
->>>>>>> 3718dc5504ad4c6853f95a254b951b2fd1a7921f
 </body>
 
 @endsection

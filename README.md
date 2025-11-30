@@ -3,22 +3,15 @@
 ```
 cd POC
 composer install
-<<<<<<< HEAD
-npm install php artisan key:generate
-=======
 npm install
 cd ..
 php artisan key:generate
->>>>>>> 3718dc5504ad4c6853f95a254b951b2fd1a7921f
 type nul > database\database.sqlite
 php artisan key:generate
 php artisan migrate:fresh
 php artisan serve
 ```
 
-<<<<<<< HEAD
-With the use of Herd just add the project to Herd instead of `php artisan serve`
-=======
 With the use of Herd just add the project to Herd instead of `php artisan serve`
 
 # How to setup Mosquitto, MQTT, and run it.
@@ -47,4 +40,3 @@ cmake --build . --clean-first
 8. Flash the pico like normal, PicoSem\build\PicoSem.uf2
 
 9. php artisan serve, pressing the button should show 3 buzzer beeps and 3 LED flashes.
->>>>>>> 3718dc5504ad4c6853f95a254b951b2fd1a7921f

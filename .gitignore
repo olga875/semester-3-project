@@ -22,9 +22,5 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
-<<<<<<< HEAD
-package-lock.json
-=======
 package-lock.json
 /build
->>>>>>> 3718dc5504ad4c6853f95a254b951b2fd1a7921f
