@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 use Bluerhinos\phpMQTT;
 
-class HelloController extends Controller
+class TablesController extends Controller
 {
     public function index()
     {

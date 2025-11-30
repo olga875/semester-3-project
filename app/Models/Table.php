@@ -7,8 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Table extends Model
 {
     protected $fillable = [
+        'current_height',
         'name',
-        'floor',
+        'room_id',
+        'company'
+        'name',
         'is_active'
     ];
 
