@@ -90,3 +90,8 @@ Route::post('/building', [AdminController::class,'saveBuilding'])->middleware(Au
 Route::post('/floor', [AdminController::class,'saveFloor'])->middleware(AuthAdminMiddleware::class)->name('floor.post');
 Route::post('/office', [AdminController::class,'saveRoom'])->middleware(AuthAdminMiddleware::class)->name('office.post');
 Route::post('/blink', [PicoController::class,'blink'])->name("blink");
+
+Route::get('/booking', [BookingController::class, 'viewBooking'])->middleware("auth")->name('booking.viewBooking');
+Route::get('/timetable', function () {
+    return view('Timetable');
+})->middleware('auth')->name('timetable');

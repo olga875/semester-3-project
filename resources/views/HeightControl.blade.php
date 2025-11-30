@@ -11,8 +11,7 @@
     <header class="app-bar">
         <h1>Employee Dashboard</h1>
         <div class="nav-buttons">
-            <button onclick="window.location.href='/timetable'">Timetable</button>
-            <button onclick="goToIntervals()">Time Intervals</button>
+            <button onclick="window.location.href='{{route('booking.viewBooking') }}'">Timetable</button>
             <button>Settings</button>
             <button>Logout</button>
         </div>

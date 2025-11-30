@@ -10,8 +10,7 @@ class Table extends Model
         'current_height',
         'name',
         'room_id',
-        'company'
-        'name',
+        'company',
         'is_active'
     ];
 

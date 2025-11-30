@@ -11,7 +11,6 @@
     <header class="app-bar">
         <h1>Employee Dashboard</h1>
         <div class="nav-buttons">
-            <button onclick="goToDeskControl()">Desk Control</button>
             <button>Settings</button>
             <button>Logout</button>
         </div>
