@@ -9,11 +9,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-<<<<<<< HEAD
-=======
 use Bluerhinos\phpMQTT;
 
->>>>>>> 3718dc5504ad4c6853f95a254b951b2fd1a7921f
 class HelloController extends Controller
 {
     public function index()
@@ -22,8 +19,6 @@ class HelloController extends Controller
         return view('welcome', compact('height'));
     }
 
-<<<<<<< HEAD
-=======
     public function blink()
     {
         $server = env('MQTT_HOST');
@@ -66,23 +61,10 @@ class HelloController extends Controller
         }
     }
 
->>>>>>> 3718dc5504ad4c6853f95a254b951b2fd1a7921f
     public function updateDesk(Request $request)
     {
         $height = $request->input('height', 750);
    
-<<<<<<< HEAD
-        $response = Http::put(
-        'http://localhost:8006/api/v2/F7H1vM3kQ5rW8zT9xG2pJ6nY4dL0aZ3K/desks/91:17:a4:3b:f4:4d/state',
-        ['position_mm' => (int)$height]
-        );
-
-        return view('welcome', [
-            'height' => $height,
-            'apiResponse' => $response->body()
-        ]);
-
-=======
         Http::put(
         'http://localhost:8006/api/v2/F7H1vM3kQ5rW8zT9xG2pJ6nY4dL0aZ3K/desks/91:17:a4:3b:f4:4d/state',
         ['position_mm' => (int)$height]
@@ -104,7 +86,6 @@ class HelloController extends Controller
             'status' => 'height_changed',
             'height' => $currentHeight,
         ]);
->>>>>>> 3718dc5504ad4c6853f95a254b951b2fd1a7921f
     }
 
 
