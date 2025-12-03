@@ -44,12 +44,12 @@
         </div>
         <div class="input-container access">
             <label>
-                <input type="radio" name="access" value="user" {{ old('access') == 'user' ? 'checked' : '' }} required>
+                <input type="radio" name="access" value="user" {{ old('access') == 'user' ? 'checked' : '' }} >
                 User
             </label>
 
             <label>
-                <input type="radio" name="access" value="staff" {{ old('access') == 'staff' ? 'checked' : '' }}>
+                <input type="radio" name="access" value="cleaning staff" {{ old('access') == 'staff' ? 'checked' : '' }}>
                 Staff
             </label>
         </div>

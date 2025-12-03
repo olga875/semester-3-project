@@ -10,10 +10,17 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\PreferencesController;
 use App\Http\Controllers\IntervalController;
 use App\Http\Controllers\AdminTableController;
+use App\Enums\AccessLevels;
+
 
 Route::get('/', function () {
+    if (auth()->user()->access_level === AccessLevels::STAFF) {
+        return view('CleaningStaff');
+    }
     return view('HeightControl');
 })->middleware('auth')->name('home');
+
+Route::get('/logout', [AuthController::class, 'LogOut'])->name('logout');
 
 // Desk movement endpoint used by front-end
 Route::post('/update-height', [TablesController::class, 'updateDesk'])->middleware('auth')->name('desk.updateHeight');

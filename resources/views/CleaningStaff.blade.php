@@ -6,10 +6,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Timetable</title>
     <link rel="stylesheet" href="{{ asset('css/Timetable.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/CleaningStaff.css') }}">
 </head>
 <body>
     <header class="app-bar">
-        <h1>Employee Dashboard</h1>
+        <h1>Cleaning Staff Dashboard</h1>
         <div class="nav-buttons">
             <form method="GET" action="{{route('logout')}}">
                 <button type="submit">Logout</button>
@@ -18,30 +19,9 @@
     </header>
 
     <main class="main-container">
-        <section class="left-section">
-            <h2>Office Layout</h2>
-            <div class="office-room">
-                <div class="desk desk-1">1</div>
-                <div class="desk desk-2">2</div>
-                <div class="desk desk-3">3</div>
-                <div class="desk desk-4">4</div>
-                <div class="desk desk-5">5</div>
-                <div class="desk desk-6">6</div>
-                <div class="desk desk-7">7</div>
-                <div class="desk desk-8">8</div>
-                <div class="desk desk-9">9</div>
-                <div class="desk desk-10">10</div>
-                <div class="desk desk-11">11</div>
-                <div class="desk desk-12">12</div>
-                <div class="desk desk-13">13</div>
-                <div class="desk desk-14">14</div>
-                <div class="desk desk-15">15</div>
-                <div class="desk desk-16">16</div>
-            </div>
-        </section>
 
-        <section class="right-section">
-            <h2>Navigate</h2>
+        <section class="main-section">
+            <h2>Set the desks</h2>
             
             <div class="filters">
                 <div class="filter-group">
@@ -74,10 +54,11 @@
                         <option value="c">Room C</option>
                     </select>
                 </div>
+
+                <button>Cleaning Mode</button>
+                <button>Reset</button>
             </div>
         </section>
     </main>
-
-    <script src="{{ asset('js/Timetable.js') }}"></script>
 </body>
 </html>

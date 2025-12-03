@@ -88,6 +88,14 @@ class AuthController extends Controller
         return view('Admin', compact('requests'));
     }
 
+    public function LogOut(Request $request)
+    {
+        $user = auth()->user();
+        Auth::logout($user);
+
+        return view('Login');
+    }
+
     public function ApproveAccess(Request $request, AccessRequest $acRequest)
     {
         if ($request->user()->cannot('update', $acRequest)) {

@@ -12,8 +12,9 @@
         <h1>Employee Dashboard</h1>
         <div class="nav-buttons">
             <button onclick="window.location.href='{{route('booking.viewBooking') }}'">Timetable</button>
-            <button>Settings</button>
-            <button>Logout</button>
+            <form method="GET" action="{{route('logout')}}">
+                <button type="submit">Logout</button>
+            </form>
         </div>
     </header>
 

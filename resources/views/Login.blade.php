@@ -31,7 +31,7 @@
             </div>
 
             <button class="login-bt" type="login">Login</button>
-            <a class="text-bt" href="{{ route('register') }}">Already have an account? Click here to login.</a>
+            <a class="text-bt" href="{{ route('register') }}">New member? Click here to register.</a>
         </form>
 
         <form method="POST" action="{{ route('blink') }}">

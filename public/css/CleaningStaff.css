@@ -1,0 +1,20 @@
+:root {
+  --container-color: #c4abd0;
+}
+
+.main-section {
+    flex-direction: column;
+    width: 50%;
+    display: flex;
+    flex: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.filters {
+    width: 50%;
+    padding: 40px;
+    border-radius: 10px;
+    background-color: var(--container-color);
+    box-shadow: 0 7px 32px rgba(0, 0, 0, 0.3);
+}
