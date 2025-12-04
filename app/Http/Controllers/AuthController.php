@@ -22,7 +22,7 @@ class AuthController extends Controller
         $validated = $request->validate([
             'email' => ['required', 'string', 'email', 'unique:users,email'],
             'name' => ['required', 'string', 'regex:/^[a-zA-Z0-9]{3,20}$/'],
-            'access' => ['required', 'in:user,staff'],
+            'access' => ['required', 'in:cleaning,office'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
 

@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Policies;
-use Illuminate\Support\Facades\Log;
-use App\Models\AccessRequest;
+
+use App\Models\Floor;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class AccessPolicy
+class FloorPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -19,9 +19,9 @@ class AccessPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, AccessRequest $accessRequest): bool
+    public function view(User $user, Floor $floor): bool
     {
-        return $user->isAdmin();
+        return true;
     }
 
     /**
@@ -29,33 +29,29 @@ class AccessPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, AccessRequest $accessRequest): bool
-    {   
-        if ($accessRequest->user->isAdmin()) {
-            return false;
-        }
-    
+    public function update(User $user, Floor $floor): bool
+    {
         return $user->isAdmin();
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, AccessRequest $accessRequest): bool
+    public function delete(User $user, Floor $floor): bool
     {
-        return false;
+        return $user->isAdmin();
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, AccessRequest $accessRequest): bool
+    public function restore(User $user, Floor $floor): bool
     {
         return false;
     }
@@ -63,7 +59,7 @@ class AccessPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, AccessRequest $accessRequest): bool
+    public function forceDelete(User $user, Floor $floor): bool
     {
         return false;
     }
