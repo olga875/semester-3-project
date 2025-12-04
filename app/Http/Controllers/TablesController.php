@@ -66,14 +66,14 @@ class TablesController extends Controller
         $height = $request->input('height', 750);
    
         Http::put(
-        'http://localhost:8006/api/v2/F7H1vM3kQ5rW8zT9xG2pJ6nY4dL0aZ3K/desks/91:17:a4:3b:f4:4d/state',
+        'http://python-app:5000/api/v2/F7H1vM3kQ5rW8zT9xG2pJ6nY4dL0aZ3K/desks/91:17:a4:3b:f4:4d/state',
         ['position_mm' => (int)$height]
         );
         //$this->blink();
 
         do{
             $statusResponse = Http::get(
-                'http://localhost:8006/api/v2/F7H1vM3kQ5rW8zT9xG2pJ6nY4dL0aZ3K/desks/91:17:a4:3b:f4:4d/state'
+                'http://python-app:5000/api/v2/F7H1vM3kQ5rW8zT9xG2pJ6nY4dL0aZ3K/desks/91:17:a4:3b:f4:4d/state'
             );
             $currentHeight = $statusResponse->json()['position_mm'];
             $currentStatus = $statusResponse->json()['status'];
