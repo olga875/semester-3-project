@@ -83,6 +83,10 @@ Route::get('admin', [AuthController::class, 'ServeAdmin'])
 Route::post('admin/{acRequest}', [AuthController::class, 'ApproveAccess'])
     ->middleware(AuthAdminMiddleware::class)
     ->name('admin.approval');
+ 
+Route::delete('admin/users/{user}', [AuthController::class, 'DeleteUser'])
+    ->middleware(AuthAdminMiddleware::class)
+    ->name('admin.user.delete');
 
 Route::get('admin/control', [AdminController::class, 'serveBuildings'])->middleware(AuthAdminMiddleware::class)->name('admin.control');
 

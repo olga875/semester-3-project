@@ -100,7 +100,7 @@ class AuthController extends Controller
 
         if ($validated['approved']) {
             $user = $acRequest->user;
-            $user->update(['role' => $acRequest->access_level]);
+            $user->update(['role' => $acRequest->level]);
             $acRequest->update(['state' => ApprovalState::APPROVED]);
         } else {
             $acRequest->update(['state' => ApprovalState::REJECTED]);
@@ -108,5 +108,31 @@ class AuthController extends Controller
         
 
         return back()->with('status', 'Access request has been saved');
+    }
+
+    public function DeleteUser(Request $request, User $user)
+    {
+        // check if user is admin
+        if (!$request->user()->isAdmin()) {
+            abort(403, 'Unauthorized action');
+        }
+
+        // prevents deleting yourself
+        if ($user->id === $request->user()->id) {
+            return back()->withErrors(['error' => 'You cannot delete your own account']);
+        }
+
+        // prevents deleting other admins
+        if ($user->isAdmin()) {
+            return back()->withErrors(['error' => 'You cannot delete other administrators']);
+        }
+
+        // delete related access requests first
+        AccessRequest::where('user_id', $user->id)->delete();
+        
+        // delete the specific user
+        $user->delete();
+
+        return back()->with('status', 'User deleted successfully');
     }
 }
