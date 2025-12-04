@@ -14,6 +14,8 @@ const uint LED = 7;
 const uint BUZZER = 20;
 const uint ON = 1;
 const uint OFF = 0;
+char client_blink[64];
+char client_stopblink[64];
 
 void led_blink()
 {
@@ -60,8 +62,12 @@ void mqtt_connection_cb(mqtt_client_t *client, void *arg, mqtt_connection_status
     if (status == MQTT_CONNECT_ACCEPTED)
     {
         printf("MQTT callback successful.");
-        mqtt_subscribe(client, "pico/blink", 0, NULL, NULL);
-        mqtt_subscribe(client, "pico/Stopblink", 0, NULL, NULL);
+        snprintf(client_blink, sizeof(client_blink), "pico/%s/blink", CLIENT_ID)
+        mqtt_subscribe(client, client_blink, 0, NULL, NULL);
+        snprintf(client_stopblink, sizeof(client_stopblink), "pico/%s/stopblink", CLIENT_ID)
+        mqtt_subscribe(client, client_stopblink, 0, NULL, NULL);
+        mqtt_subscribe(client, "pico/all/blink", 0, NULL, NULL);
+        mqtt_subscribe(client, "pico/all/Stopblink", 0, NULL, NULL);
         mqtt_set_inpub_callback(client, NULL, mqtt_incoming_data_cb, NULL);
     }
     else
@@ -107,7 +113,7 @@ int main()
     }
 
     mqtt_connect_client_info_t clinfo;
-    clinfo.client_id = "clientid";
+    clinfo.client_id = CLIENT_ID;
     clinfo.keep_alive = 0;
     clinfo.client_user = NULL;
     clinfo.client_pass = NULL;
