@@ -3,6 +3,7 @@ let sittingHeight = localStorage.getItem('sittingHeight') || null;
 let standingHeight = localStorage.getItem('standingHeight') || null;
 let moveInterval = null;
 let moveSpeed = 1;
+let min_position=680, max_position=1320; // minimum and maximum position of the desk define by simulator in mm
 
 // Initialize page and set up event listeners
 document.addEventListener('DOMContentLoaded', function() {
@@ -19,10 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
             this.value = this.value.replace(/[^0-9]/g, '');
             return;
         }
-        if (value >= 600 && value <= 1300) {
+        if (value >= min_position && value <= max_position) {
             currentHeight = value;
             updateCurrentHeight();
-            //updateDeskHeight(value);
         }
     });
     
@@ -33,11 +33,10 @@ document.addEventListener('DOMContentLoaded', function() {
             this.value = currentHeight;
             return;
         }
-        value = Math.max(600, Math.min(1300, value));
+        value = Math.max(min_position, Math.min(max_position, value));
         this.value = value;
         currentHeight = value;
         updateCurrentHeight();
-        //updateDeskHeight(value);
     });
     
     // Only allow numeric input
@@ -51,14 +50,13 @@ function startMoving(direction) {
     moveSpeed = 1;
     moveInterval = setInterval(() => {
         let newHeight = direction === 'up' ? 
-            Math.min(1300, currentHeight + Math.round(moveSpeed)) : 
-            Math.max(600, currentHeight - Math.round(moveSpeed));
+            Math.min(max_position, currentHeight + Math.round(moveSpeed)) : 
+            Math.max(min_position, currentHeight - Math.round(moveSpeed));
         
         if (newHeight !== currentHeight) {
             currentHeight = newHeight;
             document.getElementById('height-input').value = currentHeight;
             updateCurrentHeight();
-            //updateDeskHeight(currentHeight);
         }
         moveSpeed = Math.min(10, moveSpeed * 1.1);
     }, 100);
