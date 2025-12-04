@@ -54,6 +54,10 @@ Route::delete('/intervals/{interval}', [IntervalController::class, 'destroy'])
     ->middleware('auth')
     ->name('intervals.destroy');
 
+Route::post('/intervals/{interval}/mark-used', [IntervalController::class, 'markAsUsed'])
+    ->middleware('auth')
+    ->name('intervals.markUsed');
+
 Route::get('/admin/tables', [AdminTableController::class, 'index'])
     ->middleware('auth')
     ->name('admin.tables.index');
