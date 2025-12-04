@@ -11,7 +11,7 @@
 
 @section('content')
     <header class="app-bar">
-        <h1>Employee Dashboard</h1>
+        <h1>Admin Dashboard</h1>
         <div class="nav-buttons">
             <form method="GET" action="{{route('logout')}}">
                 <button type="submit">Logout</button>
