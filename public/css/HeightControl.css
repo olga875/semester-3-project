@@ -33,3 +33,9 @@ button:disabled { background: #999; }
 .apply-btn { margin: 0; min-width: 70px; font-size: 0.8rem; }
 
 .current-height { background: #6d4c7d; color: white; padding: 1.2rem; text-align: center; font-weight: bold; font-size: 1.2rem; margin: 1rem auto; width: fit-content; min-width: 350px; border-radius: 4px; }
+
+.current-cycle {position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);  background: #6b4a7c; color: #fff; padding: 10px 20px; border-radius: 8px; font-size: 16px; z-index: 999; }
+
+.filter-group { display: flex; flex-direction: column; padding: 10px; }
+.filter-group select { width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px; }
+.filter-group select:focus { outline: none; border-color: #6d4c7d; }

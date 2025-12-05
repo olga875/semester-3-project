@@ -92,10 +92,10 @@ class AdminController extends Controller
 
         for ($i = 0; $i < ($room->table_num); $i++) {
             Table::create([
-                'name' => "Table {($i + 1)}",
+                'name' => 'Table ' . ($i + 1),
                 'room_id' => $room->id,
                 'current_height' => 0,
-                'company'=>$room->company
+                'company'=>$room->company,
             ]);
         }
 

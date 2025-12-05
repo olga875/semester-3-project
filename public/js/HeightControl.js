@@ -8,6 +8,7 @@ let moveSpeed = 1;
 document.addEventListener('DOMContentLoaded', function() {
     updateCurrentHeight();
     updateSavedHeights();
+    //getDeskIds();
     
     const input = document.getElementById('height-input');
     
@@ -136,10 +137,17 @@ function resetToDefault() {
 
 // Helper function to apply any height value
 function applyHeight(height) {
-    currentHeight = height;
-    document.getElementById('height-input').value = height;
-    updateCurrentHeight();
-    updateDeskHeight(height);
+    try {
+        const deskSelect = document.getElementById('desk');
+        selectedTableKey = deskSelect.value;
+    } catch {
+        alert("You must select a table!")
+    } finally {
+        currentHeight = height;
+        document.getElementById('height-input').value = height;
+        updateCurrentHeight();
+        updateDeskHeight(selectedTableKey, height);
+    }
 }
 
 // UI update functions
@@ -160,17 +168,48 @@ function goToIntervals() {
 }
 
 // API communication - send height changes to server
-async function updateDeskHeight(heightMm) {
+async function updateDeskHeight(selectedDesk, heightMm) {
     try {
-        await fetch('/update-height', {
+        const response = await fetch('/update-height', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json', 
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') 
             },
-            body: JSON.stringify({ height: heightMm })
+            body: JSON.stringify({ desk_id: selectedDesk, height: heightMm })
         });
+
+        // Debugging stuff, checking if the right desk has been adjusted
+        const finalDeskId = response.desk;
+        const finalHeight = response.height;
+
+        // Logging it (check in js web console)
+        console.log(`Desk ${finalDeskId} successfully changed height to ${finalHeight}mm.`);
+        
     } catch (error) {
         console.error('Error:', error);
+    }
+}
+
+
+// Currently not used, another way to get desk IDs that would make the page load faster (but doesn't fully work yet so for now it's done by routing).
+async function getDeskIds() {
+    try {
+        const response = await fetch('/get-ids', {
+            method: 'GET',
+            headers: { 
+                'Content-Type': 'application/json', 
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') 
+            },
+            body: JSON.stringify()
+        });
+
+        const desks = await response.json();
+        return desks;
+
+    } catch (error) {
+        console.error('Error:', error);
+        return [];
+
     }
 }

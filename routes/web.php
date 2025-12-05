@@ -14,16 +14,24 @@ use App\Enums\AccessLevels;
 
 
 Route::get('/', function () {
-    if (auth()->user()->access_level === AccessLevels::STAFF) {
-        return view('CleaningStaff');
+    switch(auth()->user()->access_level) {
+        case (AccessLevels::STAFF):
+            return view('CleaningStaff');
+        case (AccessLevels::ADMIN):
+            return view('Admin');
+        case(AccessLevels::USER):
+            return (new TablesController()->mapApiIds());
+            //return view('HeightControl');
     }
-    return view('HeightControl');
 })->middleware('auth')->name('home');
 
 Route::get('/logout', [AuthController::class, 'LogOut'])->name('logout');
 
 // Desk movement endpoint used by front-end
 Route::post('/update-height', [TablesController::class, 'updateDesk'])->middleware('auth')->name('desk.updateHeight');
+
+//Loading the desk ids from the API and connecting them to the desks in our system
+Route::get('/get-ids', [TablesController::class, 'mapApiIds'])->middleware('auth')->name('api.getDesks');
 
 // Preferences save endpoints
 Route::post('/preferences/sitting', [TablesController::class, 'applySittingHeight'])->middleware('auth')->name('preferences.sitting');

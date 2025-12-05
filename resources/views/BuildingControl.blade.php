@@ -4,6 +4,7 @@
 
 @push('styles')
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="{{ asset('css/Timetable.css') }}">
     <link rel="stylesheet" href="{{ asset('css/buildings.css') }}">
     <script>
         BUILDING_URL = "{{ route('building.post') }}"
@@ -15,10 +16,14 @@
 @endpush
 
 @section('content')
-    <section class="admin-nav">
+    <section class="app-bar">
         <h1>Options</h1>
-        <a>Building Control</a>
-        <a>Access Requests</a>
+        <div class="nav-buttons">
+            <button onclick="window.location.href='{{route('admin.panel') }}'">Main Panel</button>
+            <form method="GET" action="{{route('logout')}}">
+                <button type="submit">Logout</button>
+            </form>
+        </div>
     </section>
     <section class="content">
         <h2>Edit building structure</h2>
@@ -65,12 +70,14 @@
                 <input id="building-search" type="search" name="search-field" placeholder="Search">
                 <select id="building" class="dropdown" name="building_id" @disabled(old('type') !== 'floor')>
                     <option value=""></option>
-                    @foreach ($buildings as $building)
-                       <option 
-                       data-comp="{{ $building->company }}" 
-                       value="{{ $building->id }}"
-                       {{ old('building_id') == $building->id ? 'selected' : '' }}>{{ $building->name }}</option> 
-                    @endforeach
+                    @if (isset($buildings) && is_iterable($buildings))
+                        @foreach ($buildings as $building)
+                        <option 
+                        data-comp="{{ $building->company }}" 
+                        value="{{ $building->id }}"
+                        {{ old('building_id') == $building->id ? 'selected' : '' }}>{{ $building->name }}</option> 
+                        @endforeach
+                    @endif
                 </select>
                 @error('building_id')
                     <div class="err">{{ $message }}</div>
@@ -81,12 +88,14 @@
                 <input id="floor-search" type="search" name="search-field" placeholder="Search">
                 <select id="floor" class="dropdown" name="floor_id" @disabled(old('type') !== 'room')>
                     <option value=""></option>
-                    @foreach ($floors as $floor)
-                       <option 
-                       data-comp="{{ $floor->company }}" 
-                       value="{{ $floor->id }}"
-                       {{ old('floor_id') == $floor->id ? 'selected' : '' }}>{{ $floor->building->name }} {{ $floor->name }}</option> 
-                    @endforeach
+                    @if (isset($floors) && is_iterable($floors))
+                        @foreach ($floors as $floor)
+                        <option 
+                        data-comp="{{ $floor->company }}" 
+                        value="{{ $floor->id }}"
+                        {{ old('floor_id') == $floor->id ? 'selected' : '' }}>{{ $floor->building->name }} {{ $floor->name }}</option> 
+                        @endforeach
+                    @endif
                 </select>
                 @error('floor_id')
                     <div class="err">{{ $message }}</div>

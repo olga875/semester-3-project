@@ -1,14 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+@extends('Base')
+
+@section('title', 'Cleaning Staff Panel')
+
+@push('styles')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Timetable</title>
     <link rel="stylesheet" href="{{ asset('css/Timetable.css') }}">
     <link rel="stylesheet" href="{{ asset('css/CleaningStaff.css') }}">
-</head>
-<body>
+    
+@endpush
+
+@section('content')
     <header class="app-bar">
         <h1>Cleaning Staff Dashboard</h1>
         <div class="nav-buttons">
@@ -60,5 +65,4 @@
             </div>
         </section>
     </main>
-</body>
-</html>
+@endsection

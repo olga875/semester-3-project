@@ -11,6 +11,8 @@
     <header class="app-bar">
         <h1>Employee Dashboard</h1>
         <div class="nav-buttons">
+            <button onclick="window.location.href='{{route('home') }}'">Main Panel</button>
+            <button onclick="window.location.href='{{route('booking.viewBooking') }}'">Back to Booking</button>
             <form method="GET" action="{{route('logout')}}">
                 <button type="submit">Logout</button>
             </form>

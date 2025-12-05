@@ -1,5 +1,4 @@
-body {
-    flex-direction: row;
+.content {
     display: flex;
     flex: 1;
 }

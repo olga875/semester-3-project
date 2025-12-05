@@ -1,13 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+@extends('Base')
+
+@section('title', 'User Panel')
+
+@push('styles')
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Employee Dashboard</title>
     <link rel="stylesheet" href="{{ asset('css/HeightControl.css') }}">
-</head>
-<body>
+    
+@endpush
+
+@section('content')
     <header class="app-bar">
         <h1>Employee Dashboard</h1>
         <div class="nav-buttons">
@@ -46,6 +50,19 @@
             <h2>Saved Preferences</h2>
             
             <div class="saved-heights">
+                <div class="filter-group height-display">
+                    <label for="desk">Select the desk in order to change its height.</label>
+                    <select id="desk">
+                        @if(isset($desks) and is_iterable($desks) and count($desks)>0)
+                            @foreach($desks as $desk)
+                                <option value="{{$desk->name}}">{{ $desk->name ?? $desk->id }}</option>
+                            @endforeach
+                        @else
+                            <option value="">Currently no desks in the system. Contact your admin.</option>
+                        @endif
+                    </select>
+                </div>
+
                 <div class="height-display">
                     <label>Sitting Height</label>
                     <div class="height-row">
@@ -69,28 +86,17 @@
             </a>
         </section>
     </main>
-        @if(isset($pref))
-        <div class="current-cycle"
-         style="
-            position: fixed;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #6b4a7c;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 16px;
-            z-index: 999;
-            ">
-            <strong>Current Cycle:</strong>
-            {{ ucfirst($pref['mode']) }} 
-            ({{ $pref['sit_minutes'] }} / {{ $pref['stand_minutes'] }} min)
-            </div>
-            @endif
 
+
+    @if(isset($pref))
+    <div class="current-cycle">
+        <strong>Current Cycle:</strong>
+        {{ ucfirst($pref['mode']) }} 
+        ({{ $pref['sit_minutes'] }} / {{ $pref['stand_minutes'] }} min)
+    </div>
+    @endif
     <div id="current-height" class="current-height">Current Height: 1000 mm</div>
 
     <script src="{{ asset('js/HeightControl.js') }}"></script>
-</body>
-</html>
+
+@endsection

@@ -38,9 +38,14 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::table('tables', function (Blueprint $table) {
-            $table->string('company');
-            $table->foreignUuid("room_id")->constrained("rooms")->cascadeOnDelete();
+        Schema::create('tables', function (Blueprint $table) {
+            $table->id();
+            $table->integer('current_height');      // in mm
+            $table->string('company'); 
+            $table->string('name');
+            $table->string('room_id');
+            $table->boolean('is_active')->default(true);
+            $table->timestamps();
         });
     }
 
