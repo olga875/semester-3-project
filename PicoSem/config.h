@@ -1,5 +1,6 @@
 #pragma once
 
-#define WIFI_SSID   "Wifiname"
-#define WIFI_PASS   "wifipass"
-#define BROKER_IP_STRING "ip" 
+#define WIFI_SSID   ""
+#define WIFI_PASS   ""
+#define BROKER_IP_STRING "" 
+#define CLIENT_ID "1"
