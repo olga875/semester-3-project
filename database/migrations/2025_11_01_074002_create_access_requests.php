@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('access_requests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('level');
+            $table->enum('level', ['office', 'cleaning', 'admin']);
             $table->string('state')->default("submitted");
             $table->timestamps();
         });

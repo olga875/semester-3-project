@@ -5,8 +5,8 @@ namespace App\Enums;
 enum AccessLevels : string
 {
     case NONE = "none";
-    case USER = 'user';
-    case STAFF = 'staff';
+    case OFFICE = 'office';
+    case CLEANING = 'cleaning';
     case ADMIN = 'admin';
 }
 

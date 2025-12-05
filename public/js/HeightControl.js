@@ -5,14 +5,15 @@ let moveInterval = null;
 let moveSpeed = 1;
 
 // Initialize page and set up event listeners
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     updateCurrentHeight();
     updateSavedHeights();
     
+
     const input = document.getElementById('height-input');
-    
+
     // Handle real-time input changes
-    input.addEventListener('input', function() {
+    input.addEventListener('input', function () {
         if (this.value === '') return;
         let value = parseInt(this.value);
         if (isNaN(value)) {
@@ -25,9 +26,9 @@ document.addEventListener('DOMContentLoaded', function() {
             //updateDeskHeight(value);
         }
     });
-    
+
     // Validate input when user finishes editing
-    input.addEventListener('blur', function() {
+    input.addEventListener('blur', function () {
         let value = parseInt(this.value);
         if (isNaN(value) || this.value === '') {
             this.value = currentHeight;
@@ -39,9 +40,9 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCurrentHeight();
         //updateDeskHeight(value);
     });
-    
+
     // Only allow numeric input
-    input.addEventListener('keypress', function(e) {
+    input.addEventListener('keypress', function (e) {
         if (e.keyCode < 48 || e.keyCode > 57) e.preventDefault();
     });
 });
@@ -50,10 +51,10 @@ document.addEventListener('DOMContentLoaded', function() {
 function startMoving(direction) {
     moveSpeed = 1;
     moveInterval = setInterval(() => {
-        let newHeight = direction === 'up' ? 
-            Math.min(1300, currentHeight + Math.round(moveSpeed)) : 
+        let newHeight = direction === 'up' ?
+            Math.min(1300, currentHeight + Math.round(moveSpeed)) :
             Math.max(600, currentHeight - Math.round(moveSpeed));
-        
+
         if (newHeight !== currentHeight) {
             currentHeight = newHeight;
             document.getElementById('height-input').value = currentHeight;
@@ -120,7 +121,7 @@ async function applyStandingHeight() {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
             body: JSON.stringify({
-                sitting_height : parseInt(sittingHeight),
+                sitting_height: parseInt(sittingHeight),
                 standing_height: value
             })
         });
@@ -138,6 +139,12 @@ function resetToDefault() {
 function applyHeight(height) {
     currentHeight = height;
     document.getElementById('height-input').value = height;
+    const image = document.getElementById("table-graphic");
+        if (height < 900) {
+            image.src = SITTING_IMG
+        } else {
+            image.src = STANDNG_IMG
+        }
     updateCurrentHeight();
     updateDeskHeight(height);
 }
@@ -164,12 +171,13 @@ async function updateDeskHeight(heightMm) {
     try {
         await fetch('/update-height', {
             method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json', 
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') 
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
             body: JSON.stringify({ height: heightMm })
         });
+       
     } catch (error) {
         console.error('Error:', error);
     }

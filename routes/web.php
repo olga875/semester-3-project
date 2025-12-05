@@ -1,15 +1,13 @@
 <?php
 
-use App\Http\Controllers\AdminController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TablesController;
-use App\Http\Middleware\AuthAdminMiddleware;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PicoController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\PreferencesController;
 use App\Http\Controllers\IntervalController;
-use App\Http\Controllers\AdminTableController;
+
 
 Route::get('/', function () {
     return view('HeightControl');
@@ -54,41 +52,14 @@ Route::delete('/intervals/{interval}', [IntervalController::class, 'destroy'])
     ->middleware('auth')
     ->name('intervals.destroy');
 
-Route::get('/admin/tables', [AdminTableController::class, 'index'])
-    ->middleware('auth')
-    ->name('admin.tables.index');
-
-Route::post('/admin/tables', [AdminTableController::class, 'store'])
-    ->middleware('auth')
-    ->name('admin.tables.store');
-
-Route::put('/admin/tables/{table}', [AdminTableController::class, 'update'])
-    ->middleware('auth')
-    ->name('admin.tables.update');
-
-Route::delete('/admin/tables/{table}', [AdminTableController::class, 'destroy'])
-    ->middleware('auth')
-    ->name('admin.tables.destroy');
-
 Route::get('/register', [AuthController::class, 'ServeRegister'])->middleware('guest')->name('register.form');
 Route::post('/register', [AuthController::class, 'Register'])->middleware('guest')->name('register');
 
 Route::get('/login', [AuthController::class, 'ServeLogin'])->middleware('guest')->name('login.form');
 Route::post('/login', [AuthController::class, 'Login'])->middleware('guest')->name('login');
 
-Route::get('admin', [AuthController::class, 'ServeAdmin'])
-    ->middleware(AuthAdminMiddleware::class)
-    ->name('admin.panel');
 
-Route::post('admin/{acRequest}', [AuthController::class, 'ApproveAccess'])
-    ->middleware(AuthAdminMiddleware::class)
-    ->name('admin.approval');
 
-Route::get('admin/control', [AdminController::class, 'serveBuildings'])->middleware(AuthAdminMiddleware::class)->name('admin.control');
-
-Route::post('/building', [AdminController::class,'saveBuilding'])->middleware(AuthAdminMiddleware::class)->name('building.post');
-Route::post('/floor', [AdminController::class,'saveFloor'])->middleware(AuthAdminMiddleware::class)->name('floor.post');
-Route::post('/office', [AdminController::class,'saveRoom'])->middleware(AuthAdminMiddleware::class)->name('office.post');
 Route::post('/blink', [PicoController::class,'blink'])->name("blink");
 
 Route::get('/booking', [BookingController::class, 'viewBooking'])->middleware("auth")->name('booking.viewBooking');

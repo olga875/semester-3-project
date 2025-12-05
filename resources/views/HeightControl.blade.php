@@ -39,6 +39,7 @@
         </section>
 
         <section class="middle-section">
+            <img id="table-graphic" src="{{ asset('img/sitting.png') }}"/>
         </section>
 
         <section class="right-section">
@@ -89,7 +90,11 @@
             @endif
 
     <div id="current-height" class="current-height">Current Height: 1000 mm</div>
-
+        
+    <script>
+        SITTING_IMG = "{{ asset('img/sitting.png') }}"
+        STANDNG_IMG = "{{ asset('img/standing.png') }}"
+    </script>
     <script src="{{ asset('js/HeightControl.js') }}"></script>
 </body>
 </html>
