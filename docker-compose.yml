@@ -35,12 +35,27 @@ services:
       db:
         condition: service_healthy
 
-
-  python-app:
-      build: ./desk-api
+  mqtt:
+    image: eclipse-mosquitto
+    hostname: mosquitto
+    container_name: mosquitto
+    restart: unless-stopped
+    networks:
+        - app-network
+    ports:
+      - "${MQTT_PORT}:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto:/etc/mosquitto
+      - ./docker/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      #- ./mosquitto/data:/mosquitto/data
+  desk-api:
+      build: ./docker/desk-api
       ports:
         - "${DESK_PORT}:5000"
       restart: always
+      environment:
+      - DESK_COUNT=${DESK_COUNT}
       networks:
         - app-network
   db:
@@ -70,4 +85,4 @@ volumes:
   laravel-storage-production:
 networks:
   app-network:
-  
+ 

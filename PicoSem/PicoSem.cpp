@@ -129,11 +129,11 @@ int main()
     }
     while (true)
     {
-        if(blink_request == false)
+        if(blink_request)
         {
             led_blink();
             printf("blink!\n");
-            blink_request = true;
+            blink_request = false;
         }
         sleep_ms(100);
     }

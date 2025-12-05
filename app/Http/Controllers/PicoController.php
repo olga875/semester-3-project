@@ -16,7 +16,7 @@ class PicoController extends Controller
         $client_id = 'phpMQTT-publisher';
         $mqtt = new phpMQTT($server, $port, $client_id);
     
-        if ($mqtt->connect(true, NULL, $username, $password))
+        if ($mqtt->connect(true, NULL, null, null))
         {
             $mqtt->publish('pico/blink', 'blink', 0, false);
             sleep(3);
