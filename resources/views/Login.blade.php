@@ -36,6 +36,8 @@
 
         <form method="POST" action="{{ route('blink') }}">
             @csrf
+            <label for="clientid">Pico Client ID:</label><br>
+            <input type="text" id="clientid" name="clientid"><br>
             <button type="submit">Blink LED</button>
         </form>
 

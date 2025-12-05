@@ -7,8 +7,13 @@ use Bluerhinos\phpMQTT;
 
 class PicoController extends Controller
 {
-    public function blink()
+    public function blink(Request $request)
     {
+        $validatedclient = $request->validate([
+            // Regex checks if input is either "all" or integer between 1-150
+            'clientid'=> 'required|regex:/^(all|[1-9][0-9]?|1[0-4][0-9]|150)$/',
+        ]);
+        $clientpico = $validatedclient['clientid'];
         $server = env('MQTT_HOST');
         $port = env('MQTT_PORT');
         $username = '';
@@ -18,9 +23,9 @@ class PicoController extends Controller
     
         if ($mqtt->connect(true, NULL, $username, $password))
         {
-            $mqtt->publish('pico/blink', 'blink', 0, false);
+            $mqtt->publish("pico/{$clientpico}/blink", 'blink', 0, false);
             sleep(3);
-            $mqtt->publish('pico/Stopblink', 'Stopblink', 0, false);
+            $mqtt->publish("pico/{$clientpico}/Stopblink", 'Stopblink', 0, false);
             $mqtt->close();
             return back();
         }
