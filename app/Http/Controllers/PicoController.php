@@ -11,7 +11,7 @@ class PicoController extends Controller
     {
         $validatedclient = $request->validate([
             // Regex checks if input is either "all" or integer between 1-150
-            'clientid'=> 'required|regex:/^(all|[1-9][0-9]?|1[0-4][0-9]|150)$/',
+            'clientid'=> ['required', 'regex:/^(all|[1-9][0-9]?|1[0-4][0-9]|150)$/'],
         ]);
         $clientpico = $validatedclient['clientid'];
         $server = env('MQTT_HOST');

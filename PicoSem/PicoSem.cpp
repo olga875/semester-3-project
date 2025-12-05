@@ -62,9 +62,9 @@ void mqtt_connection_cb(mqtt_client_t *client, void *arg, mqtt_connection_status
     if (status == MQTT_CONNECT_ACCEPTED)
     {
         printf("MQTT callback successful.");
-        snprintf(client_blink, sizeof(client_blink), "pico/%s/blink", CLIENT_ID)
+        int n1 = snprintf(client_blink, sizeof(client_blink), "pico/%s/blink", CLIENT_ID);
+        int n2 = snprintf(client_stopblink, sizeof(client_stopblink), "pico/%s/Stopblink", CLIENT_ID);
         mqtt_subscribe(client, client_blink, 0, NULL, NULL);
-        snprintf(client_stopblink, sizeof(client_stopblink), "pico/%s/stopblink", CLIENT_ID)
         mqtt_subscribe(client, client_stopblink, 0, NULL, NULL);
         mqtt_subscribe(client, "pico/all/blink", 0, NULL, NULL);
         mqtt_subscribe(client, "pico/all/Stopblink", 0, NULL, NULL);
